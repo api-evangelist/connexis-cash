@@ -1,0 +1,99 @@
+name: Connexis Cash
+description: APIs for the Connexis Cash payment and financial services platform
+image: https://connexiscash.com/logo.png
+url: https://connexiscash.com
+created: '2024-01-01'
+modified: '2024-01-01'
+apis:
+- name: Connexis Cash Payment API
+  description: API for processing payments, transfers, and transaction management
+  image: https://connexiscash.com/images/payment-api.png
+  humanURL: https://connexiscash.com/products/payment-api
+  baseURL: https://api.connexiscash.com/v1
+  tags:
+  - payments
+  - transactions
+  - transfers
+  - financial services
+  properties:
+  - type: Documentation
+    url: https://docs.connexiscash.com/payment-api
+  - type: OpenAPI
+    url: https://api.connexiscash.com/v1/openapi.json
+  - type: Authentication
+    url: https://docs.connexiscash.com/authentication
+  contact:
+  - FN: API Support
+    email: api-support@connexiscash.com
+    url: https://connexiscash.com/support
+- name: Connexis Cash Account API
+  description: API for managing user accounts, balances, and account information
+  image: https://connexiscash.com/images/account-api.png
+  humanURL: https://connexiscash.com/products/account-api
+  baseURL: https://api.connexiscash.com/v1
+  tags:
+  - accounts
+  - users
+  - balances
+  - profile management
+  properties:
+  - type: Documentation
+    url: https://docs.connexiscash.com/account-api
+  - type: OpenAPI
+    url: https://api.connexiscash.com/v1/accounts-openapi.json
+  - type: Authentication
+    url: https://docs.connexiscash.com/authentication
+  contact:
+  - FN: API Support
+    email: api-support@connexiscash.com
+    url: https://connexiscash.com/support
+- name: Connexis Cash Webhook API
+  description: API for configuring and managing webhook notifications for payment events
+  image: https://connexiscash.com/images/webhook-api.png
+  humanURL: https://connexiscash.com/products/webhook-api
+  baseURL: https://api.connexiscash.com/v1
+  tags:
+  - webhooks
+  - notifications
+  - events
+  - callbacks
+  properties:
+  - type: Documentation
+    url: https://docs.connexiscash.com/webhook-api
+  - type: OpenAPI
+    url: https://api.connexiscash.com/v1/webhooks-openapi.json
+  contact:
+  - FN: API Support
+    email: api-support@connexiscash.com
+    url: https://connexiscash.com/support
+common:
+- type: Portal
+  url: https://developer.connexiscash.com
+- type: Getting Started
+  url: https://docs.connexiscash.com/getting-started
+- type: Authentication
+  url: https://docs.connexiscash.com/authentication
+- type: SDKs
+  url: https://docs.connexiscash.com/sdks
+- type: Status Page
+  url: https://status.connexiscash.com
+- type: Terms of Service
+  url: https://connexiscash.com/terms
+- type: Privacy Policy
+  url: https://connexiscash.com/privacy
+- type: Contact
+  url: https://connexiscash.com/contact
+- type: Blog
+  url: https://connexiscash.com/blog
+- type: Pricing
+  url: https://connexiscash.com/pricing
+maintainers:
+- FN: Connexis Cash API Team
+  email: api-team@connexiscash.com
+  url: https://connexiscash.com
+tags:
+- financial services
+- payments
+- fintech
+- digital banking
+- money transfer
