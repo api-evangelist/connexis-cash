@@ -3,7 +3,7 @@ description: APIs for the Connexis Cash payment and financial services platform
 image: https://connexiscash.com/logo.png
 url: https://connexiscash.com
 created: '2024-01-01'
-modified: '2024-01-01'
+modified: '2026-03-16'
 apis:
 - name: Connexis Cash Payment API
   description: API for processing payments, transfers, and transaction management
@@ -88,9 +88,8 @@ common:
 - type: Pricing
   url: https://connexiscash.com/pricing
 maintainers:
-- FN: Connexis Cash API Team
-  email: api-team@connexiscash.com
-  url: https://connexiscash.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 tags:
 - financial services
 - payments
