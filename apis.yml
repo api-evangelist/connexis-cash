@@ -13,10 +13,10 @@ apis:
     humanURL: https://connexiscash.com/products/payment-api
     baseURL: https://api.connexiscash.com/v1
     tags:
-      - payments
-      - transactions
-      - transfers
-      - financial services
+      - Financial Services
+      - Payments
+      - Transactions
+      - Transfers
     properties:
       - type: Documentation
         url: https://docs.connexiscash.com/payment-api
@@ -35,10 +35,10 @@ apis:
     humanURL: https://connexiscash.com/products/account-api
     baseURL: https://api.connexiscash.com/v1
     tags:
-      - accounts
-      - users
-      - balances
-      - profile management
+      - Accounts
+      - Balances
+      - Profile Management
+      - Users
     properties:
       - type: Documentation
         url: https://docs.connexiscash.com/account-api
@@ -57,10 +57,10 @@ apis:
     humanURL: https://connexiscash.com/products/webhook-api
     baseURL: https://api.connexiscash.com/v1
     tags:
-      - webhooks
-      - notifications
-      - events
-      - callbacks
+      - Callbacks
+      - Events
+      - Notifications
+      - Webhooks
     properties:
       - type: Documentation
         url: https://docs.connexiscash.com/webhook-api
@@ -95,8 +95,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 tags:
-  - financial services
-  - payments
-  - fintech
-  - digital banking
-  - money transfer
+  - Digital Banking
+  - Financial Services
+  - Fintech
+  - Money Transfer
+  - Payments
