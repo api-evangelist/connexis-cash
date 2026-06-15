@@ -1,0 +1,667 @@
+{
+  "item": [
+    {
+      "id": "4f5f53c5-2ed4-4750-be6c-f6b58009c9e5",
+      "name": "Consents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "54efc033-31e5-43cc-880e-7aa3f3a807df",
+          "name": "Forward the PSU consent to the ASPSP",
+          "request": {
+            "name": "Forward the PSU consent to the ASPSP",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "consents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"balances\": [\n    {\n      \"iban\": \"<string>\",\n      \"bicFi\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"other\": {\n        \"identification\": \"<string>\",\n        \"schemeName\": \"<string>\",\n        \"issuer\": \"<string>\"\n      }\n    },\n    {\n      \"iban\": \"<string>\",\n      \"bicFi\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"other\": {\n        \"identification\": \"<string>\",\n        \"schemeName\": \"<string>\",\n        \"issuer\": \"<string>\"\n      }\n    }\n  ],\n  \"transactions\": [\n    {\n      \"iban\": \"<string>\",\n      \"bicFi\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"other\": {\n        \"identification\": \"<string>\",\n        \"schemeName\": \"<string>\",\n        \"issuer\": \"<string>\"\n      }\n    },\n    {\n      \"iban\": \"<string>\",\n      \"bicFi\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"other\": {\n        \"identification\": \"<string>\",\n        \"schemeName\": \"<string>\",\n        \"issuer\": \"<string>\"\n      }\n    }\n  ],\n  \"trustedBeneficiaries\": \"<boolean>\",\n  \"psuIdentity\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d1278c7-67c7-4dbb-b1be-316abc975abb",
+              "name": "Consent recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "consents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"balances\": [\n    {\n      \"iban\": \"string\",\n      \"bicFi\": \"string\",\n      \"currency\": \"string\",\n      \"other\": {\n        \"identification\": \"string\",\n        \"schemeName\": \"string\",\n        \"issuer\": \"string\"\n      }\n    },\n    {\n      \"iban\": \"string\",\n      \"bicFi\": \"string\",\n      \"currency\": \"string\",\n      \"other\": {\n        \"identification\": \"string\",\n        \"schemeName\": \"string\",\n        \"issuer\": \"string\"\n      }\n    }\n  ],\n  \"transactions\": [\n    {\n      \"iban\": \"string\",\n      \"bicFi\": \"string\",\n      \"currency\": \"string\",\n      \"other\": {\n        \"identification\": \"string\",\n        \"schemeName\": \"string\",\n        \"issuer\": \"string\"\n      }\n    },\n    {\n      \"iban\": \"string\",\n      \"bicFi\": \"string\",\n      \"currency\": \"string\",\n      \"other\": {\n        \"identification\": \"string\",\n        \"schemeName\": \"string\",\n        \"issuer\": \"string\"\n      }\n    }\n  ],\n  \"trustedBeneficiaries\": \"<boolean>\",\n  \"psuIdentity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"key_0\": {\n      \"href\": \"string\"\n    },\n    \"key_1\": {\n      \"href\": \"string\"\n    },\n    \"key_2\": {\n      \"href\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e06a0334-5512-439d-95b6-3e048ee980b5",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7a39930-ab2e-4844-99a2-faba535799cd",
+          "name": "List PSU accounts available to the AISP",
+          "request": {
+            "name": "List PSU accounts available to the AISP",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e6255f7-af51-4f57-a500-ef8a6431160d",
+              "name": "A list of accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"resourceId\": \"string\",\n      \"accountId\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"currency\": \"string\",\n      \"psuStatus\": \"string\"\n    },\n    {\n      \"resourceId\": \"string\",\n      \"accountId\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"currency\": \"string\",\n      \"psuStatus\": \"string\"\n    }\n  ],\n  \"_links\": {\n    \"key_0\": 1905.4713697601944,\n    \"key_1\": 6555,\n    \"key_2\": 7079\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce0ceb64-0ee1-43e2-ad05-33aa9d0fc512",
+          "name": "Retrieve a single account",
+          "request": {
+            "name": "Retrieve a single account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c906ce8-442c-4f37-80c8-353bcecdb6d7",
+              "name": "Account details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"resourceId\": \"string\",\n  \"accountId\": {\n    \"iban\": \"string\",\n    \"bicFi\": \"string\",\n    \"currency\": \"string\",\n    \"other\": {\n      \"identification\": \"string\",\n      \"schemeName\": \"string\",\n      \"issuer\": \"string\"\n    }\n  },\n  \"name\": \"string\",\n  \"product\": \"string\",\n  \"cashAccountType\": \"string\",\n  \"currency\": \"string\",\n  \"psuStatus\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d50f6d50-04fb-4eab-967e-a80a0a4276be",
+      "name": "Balances",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a5d51e6-028d-4e4d-aedb-cd43741b85fd",
+          "name": "Retrieve balances for an account",
+          "request": {
+            "name": "Retrieve balances for an account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId",
+                "balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5787122a-5cb8-4542-9591-f916570ae6d9",
+              "name": "Account balances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId",
+                    "balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"balances\": [\n    {\n      \"name\": \"string\",\n      \"balanceAmount\": {\n        \"amount\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"balanceType\": \"string\",\n      \"referenceDate\": \"2025-07-14\",\n      \"lastChangeDateTime\": \"1996-05-13T06:18:41.557Z\"\n    },\n    {\n      \"name\": \"string\",\n      \"balanceAmount\": {\n        \"amount\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"balanceType\": \"string\",\n      \"referenceDate\": \"1976-08-20\",\n      \"lastChangeDateTime\": \"2021-12-16T00:50:40.026Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17675ce8-c26a-4f43-8aa8-bd02d47bc948",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82ff1cb9-5e66-40b9-8412-9377801dce97",
+          "name": "Retrieve transactions for an account",
+          "request": {
+            "name": "Retrieve transactions for an account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "entryReferenceFrom",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f05befe-f8dc-4dd9-9608-2379dbed6c45",
+              "name": "Account transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "entryReferenceFrom",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"transactions\": {\n    \"booked\": [\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"BOOK\",\n        \"bookingDate\": \"2013-12-20\",\n        \"valueDate\": \"2014-04-12\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"OTHR\",\n        \"bookingDate\": \"1980-07-02\",\n        \"valueDate\": \"2016-10-20\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"pending\": [\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"DBIT\",\n        \"status\": \"OTHR\",\n        \"bookingDate\": \"2002-01-03\",\n        \"valueDate\": \"1998-03-16\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"DBIT\",\n        \"status\": \"OTHR\",\n        \"bookingDate\": \"1987-04-07\",\n        \"valueDate\": \"2007-01-25\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"_links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "281f2677-336b-4094-b516-a8187c196d4c",
+      "name": "Beneficiaries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "579b6b6a-19d7-44a4-8390-f342d8e0cecc",
+          "name": "Retrieve PSU trusted beneficiaries",
+          "request": {
+            "name": "Retrieve PSU trusted beneficiaries",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "trusted-beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "486718c4-9276-486a-8b09-1f5aefe77eea",
+              "name": "Trusted beneficiaries list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "trusted-beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"trustedBeneficiaries\": [\n    {\n      \"creditorAccount\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"creditorAgent\": {\n        \"bicFi\": \"string\"\n      },\n      \"creditor\": {\n        \"name\": \"string\"\n      },\n      \"isTrusted\": false\n    },\n    {\n      \"creditorAccount\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"creditorAgent\": {\n        \"bicFi\": \"string\"\n      },\n      \"creditor\": {\n        \"name\": \"string\"\n      },\n      \"isTrusted\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "aisp"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34b60d04-fff9-4d57-b607-310653707952",
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,\nexposed by BNP Paribas CIB and aligned to the French STET PSD2 standard\n(1.4.0.47, Full-AISP \"A1\" model). Authentication uses OAuth 2.0\nAuthorization Code in production (Client Credentials in sandbox) and\nrequires a QWAC for TLS. The mock sandbox returns simulated data only.\n\n\nContact Support:\n Name: BNP Paribas CIB Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP)",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.cib.bnpparibas.com/oauth2/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Forward the PSU consent to the ASPSP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/consents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Forward the PSU consent to the ASPSP"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List PSU accounts available to the AISP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/accounts"
+          },
+          "docs": "List PSU accounts available to the AISP"
+        },
+        {
+          "info": {
+            "name": "Retrieve a single account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/accounts/:accountResourceId",
+            "params": [
+              {
+                "name": "accountResourceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve balances for an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/accounts/:accountResourceId/balances",
+            "params": [
+              {
+                "name": "accountResourceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve balances for an account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve transactions for an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/accounts/:accountResourceId/transactions",
+            "params": [
+              {
+                "name": "accountResourceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entryReferenceFrom",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve transactions for an account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve PSU trusted beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/trusted-beneficiaries"
+          },
+          "docs": "Retrieve PSU trusted beneficiaries"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
