@@ -13,7 +13,7 @@ description: >-
 type: Index
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml
 created: '2024-01-01'
@@ -45,7 +45,7 @@ apis:
       callback URLs, and EBA reference codes.
     humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
     baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - AISP
       - PSD2
@@ -84,7 +84,7 @@ apis:
       users authenticate with two factors before consenting to share account
       data or initiate payments.
     humanURL: https://developers.cib.bnpparibas.com/index.php/docs/sca
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - PSD2
       - SCA
@@ -110,7 +110,7 @@ apis:
       and liquidity management for BNP Paribas corporate customers, with
       web and mobile apps and host-to-host connectivity options.
     humanURL: https://cashmanagement.bnpparibas.com/solutions/digital-channels
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cash Management
       - Digital Channel
