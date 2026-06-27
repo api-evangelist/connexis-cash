@@ -54,7 +54,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
-      - type: Developer Portal
+      - type: DeveloperPortal
         url: https://developers.cib.bnpparibas.com/
       - type: Production
         url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
@@ -92,7 +92,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.cib.bnpparibas.com/index.php/docs/sca
-      - type: Developer Portal
+      - type: DeveloperPortal
         url: https://developers.cib.bnpparibas.com/
     x-features:
       - Two-Factor Authentication
@@ -134,7 +134,7 @@ apis:
 common:
   - type: Website
     url: https://cashmanagement.bnpparibas.com/solutions/digital-channels
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developers.cib.bnpparibas.com/
   - type: Open Banking Tracker
     url: https://www.openbankingtracker.com/provider/connexis-cash
