@@ -132,6 +132,8 @@ apis:
       - Initiate and authorize cross-border payments
       - Reconcile inflows and outflows across BNP Paribas accounts
 common:
+  - type: OAuthScopes
+    url: scopes/connexis-cash-scopes.yml
   - type: Website
     url: https://cashmanagement.bnpparibas.com/solutions/digital-channels
   - type: DeveloperPortal
