@@ -132,6 +132,8 @@ apis:
       - Initiate and authorize cross-border payments
       - Reconcile inflows and outflows across BNP Paribas accounts
 common:
+  - type: AgenticAccess
+    url: agentic-access/connexis-cash-agentic-access.yml
   - type: DomainSecurity
     url: security/connexis-cash-domain-security.yml
   - type: Authentication
