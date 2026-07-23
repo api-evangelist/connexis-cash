@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Beneficiaries API
+  description: 'PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,
+
+    exposed by BNP Paribas CIB and aligned to the French STET PSD2 standard
+
+    (1.4.0.47, Full-AISP "A1" model). Authentication uses OAuth 2.0
+
+    Authorization Code in production (Client Credentials in sandbox) and
+
+    requires a QWAC for TLS. The mock sandbox returns simulated data only.
+
+    '
+  version: 1.4.0
+  contact:
+    name: BNP Paribas CIB Developer Portal
+    url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+servers:
+- url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  description: BNP Paribas CIB - PSD2 STET AISP (production / mock)
+security:
+- oauth2:
+  - aisp
+tags:
+- name: Beneficiaries
+paths:
+  /v1/trusted-beneficiaries:
+    get:
+      tags:
+      - Beneficiaries
+      summary: Retrieve PSU trusted beneficiaries
+      responses:
+        '200':
+          description: Trusted beneficiaries list
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/BeneficiaryList'
+components:
+  schemas:
+    BeneficiaryList:
+      type: object
+      properties:
+        trustedBeneficiaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
+    AccountReference:
+      type: object
+      properties:
+        iban:
+          type: string
+        bicFi:
+          type: string
+        currency:
+          type: string
+        other:
+          type: object
+          properties:
+            identification:
+              type: string
+            schemeName:
+              type: string
+            issuer:
+              type: string
+    Beneficiary:
+      type: object
+      properties:
+        creditorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        creditorAgent:
+          type: object
+          properties:
+            bicFi:
+              type: string
+        creditor:
+          type: object
+          properties:
+            name:
+              type: string
+        isTrusted:
+          type: boolean
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+          tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+          scopes:
+            aisp: Account Information Service
+        clientCredentials:
+          tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+          scopes:
+            aisp: Account Information Service (sandbox)
