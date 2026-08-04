@@ -1,0 +1,22 @@
+{
+  "provider": "connexis-cash",
+  "sources": [
+    "connexis-cash-accounts-api-openapi.yml",
+    "connexis-cash-balances-api-openapi.yml",
+    "connexis-cash-beneficiaries-api-openapi.yml",
+    "connexis-cash-consents-api-openapi.yml",
+    "connexis-cash-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "connexis-cash-accounts-api-openapi.yml",
+    "connexis-cash-balances-api-openapi.yml",
+    "connexis-cash-beneficiaries-api-openapi.yml",
+    "connexis-cash-consents-api-openapi.yml",
+    "connexis-cash-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
