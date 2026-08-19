@@ -1,0 +1,179 @@
+{
+  "item": [
+    {
+      "id": "2478748b-cf54-441e-9092-646997ce34f4",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8cdf5930-e095-4c0f-a5d2-081b34ab2cec",
+          "name": "Retrieve transactions for an account",
+          "request": {
+            "name": "Retrieve transactions for an account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "entryReferenceFrom",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7501fefc-f8b9-4dd1-87c5-d367df83925c",
+              "name": "Account transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "entryReferenceFrom",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"transactions\": {\n    \"booked\": [\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"PDNG\",\n        \"bookingDate\": \"1971-12-24\",\n        \"valueDate\": \"2008-01-27\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"OTHR\",\n        \"bookingDate\": \"1975-10-15\",\n        \"valueDate\": \"2002-05-04\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"pending\": [\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"BOOK\",\n        \"bookingDate\": \"1951-06-15\",\n        \"valueDate\": \"1947-08-02\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"resourceId\": \"string\",\n        \"entryReference\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": \"string\",\n          \"currency\": \"string\"\n        },\n        \"creditDebitIndicator\": \"CRDT\",\n        \"status\": \"BOOK\",\n        \"bookingDate\": \"1985-11-29\",\n        \"valueDate\": \"2017-05-11\",\n        \"remittanceInformation\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"_links\": {\n    \"key_0\": 831\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "aisp"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "45eda959-7b66-4de5-9947-c7f1244625ff",
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,\nexposed by BNP Paribas CIB and aligned to the French STET PSD2 standard\n(1.4.0.47, Full-AISP \"A1\" model). Authentication uses OAuth 2.0\nAuthorization Code in production (Client Credentials in sandbox) and\nrequires a QWAC for TLS. The mock sandbox returns simulated data only.\n\n\nContact Support:\n Name: BNP Paribas CIB Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "item": [
+    {
+      "id": "2836eb5d-fe2c-48d6-86de-bfb0ddbd657f",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74279183-7921-4075-a207-bb20f3044b3d",
+          "name": "List PSU accounts available to the AISP",
+          "request": {
+            "name": "List PSU accounts available to the AISP",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "487b8b7e-cc2b-45d8-aeff-62f68d359d33",
+              "name": "A list of accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"resourceId\": \"string\",\n      \"accountId\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"currency\": \"string\",\n      \"psuStatus\": \"string\"\n    },\n    {\n      \"resourceId\": \"string\",\n      \"accountId\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"name\": \"string\",\n      \"product\": \"string\",\n      \"cashAccountType\": \"string\",\n      \"currency\": \"string\",\n      \"psuStatus\": \"string\"\n    }\n  ],\n  \"_links\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6937.791575458519\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0badee1-6366-40c0-b8da-7312df052aab",
+          "name": "Retrieve a single account",
+          "request": {
+            "name": "Retrieve a single account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ffba3f81-e2cd-4c90-b05f-a65f5419fb0a",
+              "name": "Account details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"resourceId\": \"string\",\n  \"accountId\": {\n    \"iban\": \"string\",\n    \"bicFi\": \"string\",\n    \"currency\": \"string\",\n    \"other\": {\n      \"identification\": \"string\",\n      \"schemeName\": \"string\",\n      \"issuer\": \"string\"\n    }\n  },\n  \"name\": \"string\",\n  \"product\": \"string\",\n  \"cashAccountType\": \"string\",\n  \"currency\": \"string\",\n  \"psuStatus\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "aisp"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3b5b2804-9b23-4e52-9112-3d3ec9dd3c0f",
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,\nexposed by BNP Paribas CIB and aligned to the French STET PSD2 standard\n(1.4.0.47, Full-AISP \"A1\" model). Authentication uses OAuth 2.0\nAuthorization Code in production (Client Credentials in sandbox) and\nrequires a QWAC for TLS. The mock sandbox returns simulated data only.\n\n\nContact Support:\n Name: BNP Paribas CIB Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

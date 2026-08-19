@@ -1,0 +1,150 @@
+{
+  "item": [
+    {
+      "id": "61da1e8f-f75b-445c-a1d7-0dabd3b79a3f",
+      "name": "Balances",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa70e508-1516-44ee-8476-3cc07509cc10",
+          "name": "Retrieve balances for an account",
+          "request": {
+            "name": "Retrieve balances for an account",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounts",
+                ":accountResourceId",
+                "balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountResourceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e72ad4e-053e-4176-8a59-36410d7ede77",
+              "name": "Account balances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts",
+                    ":accountResourceId",
+                    "balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountResourceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"balances\": [\n    {\n      \"name\": \"string\",\n      \"balanceAmount\": {\n        \"amount\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"balanceType\": \"string\",\n      \"referenceDate\": \"1950-08-25\",\n      \"lastChangeDateTime\": \"1959-11-18T15:05:08.914Z\"\n    },\n    {\n      \"name\": \"string\",\n      \"balanceAmount\": {\n        \"amount\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"balanceType\": \"string\",\n      \"referenceDate\": \"1948-02-09\",\n      \"lastChangeDateTime\": \"1978-10-01T14:27:22.870Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "aisp"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1200855f-c702-4354-91c0-0cb15091645b",
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Balances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,\nexposed by BNP Paribas CIB and aligned to the French STET PSD2 standard\n(1.4.0.47, Full-AISP \"A1\" model). Authentication uses OAuth 2.0\nAuthorization Code in production (Client Credentials in sandbox) and\nrequires a QWAC for TLS. The mock sandbox returns simulated data only.\n\n\nContact Support:\n Name: BNP Paribas CIB Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

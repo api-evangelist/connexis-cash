@@ -1,0 +1,130 @@
+{
+  "item": [
+    {
+      "id": "4b02a503-023e-4c63-9d65-97bc89b18a98",
+      "name": "Beneficiaries",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f920b336-c109-4a26-bdde-51bb4194bd5d",
+          "name": "Retrieve PSU trusted beneficiaries",
+          "request": {
+            "name": "Retrieve PSU trusted beneficiaries",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "trusted-beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8837175d-9334-46ff-9cf7-37aced16f208",
+              "name": "Trusted beneficiaries list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "trusted-beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"trustedBeneficiaries\": [\n    {\n      \"creditorAccount\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"creditorAgent\": {\n        \"bicFi\": \"string\"\n      },\n      \"creditor\": {\n        \"name\": \"string\"\n      },\n      \"isTrusted\": true\n    },\n    {\n      \"creditorAccount\": {\n        \"iban\": \"string\",\n        \"bicFi\": \"string\",\n        \"currency\": \"string\",\n        \"other\": {\n          \"identification\": \"string\",\n          \"schemeName\": \"string\",\n          \"issuer\": \"string\"\n        }\n      },\n      \"creditorAgent\": {\n        \"bicFi\": \"string\"\n      },\n      \"creditor\": {\n        \"name\": \"string\"\n      },\n      \"isTrusted\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "aisp"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://api.cib.bnpparibas.com/oauth2/v1/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b3d90997-333f-438e-a11c-0a1e73680e53",
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Beneficiaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,\nexposed by BNP Paribas CIB and aligned to the French STET PSD2 standard\n(1.4.0.47, Full-AISP \"A1\" model). Authentication uses OAuth 2.0\nAuthorization Code in production (Client Credentials in sandbox) and\nrequires a QWAC for TLS. The mock sandbox returns simulated data only.\n\n\nContact Support:\n Name: BNP Paribas CIB Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

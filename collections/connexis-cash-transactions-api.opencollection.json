@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Transactions API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.cib.bnpparibas.com/oauth2/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve transactions for an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/accounts/:accountResourceId/transactions",
+            "params": [
+              {
+                "name": "accountResourceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entryReferenceFrom",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve transactions for an account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

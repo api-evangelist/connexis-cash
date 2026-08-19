@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Beneficiaries API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.cib.bnpparibas.com/oauth2/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve PSU trusted beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet/v1/trusted-beneficiaries"
+          },
+          "docs": "Retrieve PSU trusted beneficiaries"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
