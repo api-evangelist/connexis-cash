@@ -148,6 +148,8 @@ apis:
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -192,6 +194,8 @@ apis:
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
