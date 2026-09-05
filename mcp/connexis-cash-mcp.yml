@@ -1,0 +1,73 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+status: candidate
+description: >-
+  CANDIDATE tool surface derived from the four operations in the OpenAPI that BNP Paribas CIB publishes
+  for the Connexis Cash PSD2 Account Information API. BNP Paribas ships no MCP server, hosted or local
+  — this file describes what one WOULD expose, not something an agent can call today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: derived
+  note: >-
+    Searched: no hosted MCP endpoint, no npx/pip package, no mention of MCP or agents anywhere on
+    developers.cib.bnpparibas.com. No endpoint URL is guessed here — every /.well-known probe against
+    the five BNP hosts is recorded in well-known/connexis-cash-well-known.yml and none of them is an
+    MCP surface.
+gating:
+  note: >-
+    Even a hypothetical server would be gated twice over: mutual TLS with an eIDAS QWAC at the gateway,
+    and a PSU who has completed Strong Customer Authentication inside Connexis Cash. That is a
+    consequence of PSD2, not an omission by the bank.
+tools:
+  - name: list_accounts
+    description: List the PSU accounts the AISP has been granted access to.
+    rest: accountsGet
+    method: GET
+    path: /v2/accounts
+    scope: aisp
+    consequence: read
+    inputSchema_source: >-
+      Inherits the operation's parameters — pageNumber, pageSize and the PSU-context headers
+      (PSU-IP-Address, PSU-Date, PSU-User-Agent, ...) plus the required X-Request-ID and Signature.
+  - name: get_account_balances
+    description: Retrieve the balance report for one account.
+    rest: accountsBalancesGet
+    method: GET
+    path: /v2/accounts/{accountResourceId}/balances
+    scope: aisp
+    consequence: read
+    required_input: accountResourceId (from list_accounts — the ASPSP resourceId, not the IBAN)
+  - name: get_account_transactions
+    description: Retrieve booked and pending transactions for one account.
+    rest: accountsTransactionsGet
+    method: GET
+    path: /v2/accounts/{accountResourceId}/transactions
+    scope: aisp
+    consequence: read
+    required_input: accountResourceId
+    optional_input: entryDateFrom (inclusive), entryDateTo (exclusive), afterEntryReference (cursor), pageNumber, pageSize
+  - name: list_trusted_beneficiaries
+    description: Retrieve the PSU's whitelisted (trusted) beneficiaries.
+    rest: trustedBeneficiariesGet
+    method: GET
+    path: /v2/trusted-beneficiaries
+    scope: aisp
+    consequence: read
+summary:
+  tool_count: 4
+  all_read_only: true
+  write_tools: 0
+agent_notes:
+  - Every tool is a safe GET; there is nothing here an agent can break or needs to undo.
+  - >-
+    The PSU-context headers describe a human's live browser session. An unattended agent has none to
+    forward, and under the PSD2 RTS an ASPSP may treat unattended access differently (the 90-day
+    re-authentication rule). Decide that before deploying.
+  - No rate limit is published, and a 429 arrives with no Retry-After. Budget conservative backoff.

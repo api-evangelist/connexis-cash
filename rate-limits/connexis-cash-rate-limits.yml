@@ -3,106 +3,63 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Connexis Cash
 providerId: connexis-cash
+generated: '2026-09-05'
+method: searched
+source: >-
+  openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml,
+  https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock,
+  https://developers.cib.bnpparibas.com/index.php/docs/psd2,
+  https://developers.cib.bnpparibas.com/index.php/docs/get-started
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Account Information
-  - BNP Paribas
-  - Cash Management
-  - Corporate Banking
-  - Digital Banking
-  - Liquidity Management
-  - Open Banking
-  - Payments
-  - PSD2
-  - SCA
-  - STET
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Connexis Cash API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+modified: '2026-09-05'
+description: >-
+  BNP Paribas CIB publishes NO numeric rate limit for the Connexis Cash PSD2 Account Information API,
+  on the developer portal or inside the contract. The contract does declare the exhaustion status —
+  HTTP 429 "Too many requests" on all four operations, with a typed application/json ErrorModel body —
+  but it declares no Retry-After, no RateLimit-* and no X-RateLimit-* response header. An agent
+  therefore receives a stop signal with no recovery hint and must supply its own backoff policy.
+limit_count: 0
+limits: []
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
+  throttledBody: application/json (ErrorModel — status, message, error, path, timestamp)
   serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Connexis Cash PSD2 Account Information API (STET)
-      - Connexis Cash Strong Customer Authentication (SCA)
-      - Connexis Cash Digital Banking Platform
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Connexis Cash PSD2 Account Information API (STET)
-      - Connexis Cash Strong Customer Authentication (SCA)
-      - Connexis Cash Digital Banking Platform
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Connexis Cash PSD2 Account Information API (STET)
-      - Connexis Cash Strong Customer Authentication (SCA)
-      - Connexis Cash Digital Banking Platform
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Connexis Cash PSD2 Account Information API (STET)
-      - Connexis Cash Strong Customer Authentication (SCA)
-      - Connexis Cash Digital Banking Platform
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Connexis Cash PSD2 Account Information API (STET)
-      - Connexis Cash Strong Customer Authentication (SCA)
-      - Connexis Cash Digital Banking Platform
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  requestTimeout: 408
+headers:
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  headers_published: false
+  correlation:
+    request: X-Request-ID (required, max 70 chars)
+    response_on_429: x-correlation-id
+    response_on_other_errors: X-Request-ID
+observed:
+  note: >-
+    No limit could be observed live either. The production gateway
+    (https://psd2.api.cib.bnpparibas.com) refuses every anonymous request with HTTP 400 "No required
+    SSL certificate was sent" before any rate-limiting layer is reached, and the sandbox requires an
+    authorised app, so no unauthenticated response headers exist to read.
+regulatory_context:
+  note: >-
+    Under the PSD2 RTS an ASPSP may not discriminate against third-party access, and BNP Paribas
+    publishes quarterly availability and performance statistics for these APIs at
+    https://developers.cib.bnpparibas.com/index.php/docs/psd2-kpi. Those PDFs report availability and
+    response time, not a request quota.
+guidance:
+  - Honour 429 immediately; do not retry tight.
+  - Exponential backoff with jitter, since no reset time is signalled.
+  - >-
+    Prefer incremental transaction sync via afterEntryReference over re-pulling full history, which is
+    the single biggest reduction in call volume available on this API.
+note: >-
+  limit_count is 0 because the provider documents no limits — an honest zero, recorded. A previous
+  version of this file carried five invented tiers (free/professional/enterprise at 10/100/1000
+  requests per minute with 1k and 100k monthly quotas) and a full set of X-RateLimit-* headers, all
+  written by a 2026-05-04 bulk scaffold sweep. None of it came from BNP Paribas, and none of those
+  headers is returned by this API. It has been removed.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

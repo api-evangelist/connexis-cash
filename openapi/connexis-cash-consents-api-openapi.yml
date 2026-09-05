@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Consents API
   description: 'PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,
@@ -45,6 +45,31 @@ paths:
                 $ref: '#/components/schemas/ConsentResponse'
 components:
   schemas:
+    ConsentRequest:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountReference'
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountReference'
+        trustedBeneficiaries:
+          type: boolean
+        psuIdentity:
+          type: boolean
+    ConsentResponse:
+      type: object
+      properties:
+        _links:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              href:
+                type: string
     AccountReference:
       type: object
       properties:
@@ -63,31 +88,6 @@ components:
               type: string
             issuer:
               type: string
-    ConsentResponse:
-      type: object
-      properties:
-        _links:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              href:
-                type: string
-    ConsentRequest:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountReference'
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountReference'
-        trustedBeneficiaries:
-          type: boolean
-        psuIdentity:
-          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

@@ -41,7 +41,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/connexis-c
 url: >-
   https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-04-28'
+modified: '2026-09-05'
 specificationVersion: '0.23'
 kind: company
 tags:
@@ -80,8 +80,15 @@ apis:
       https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   - type: DeveloperPortal
     url: https://developers.cib.bnpparibas.com/
+  - type: OpenAPI
+    url: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+  - type: APIReference
+    url: >-
+      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   - type: Production
     url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  - type: Sandbox
+    url: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
   - type: Fallback
     url: https://connexis.bnpparibas.com/
   contact:
@@ -158,6 +165,7 @@ apis:
   humanURL: >-
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
   - Account
   tags_raw:
@@ -171,6 +179,7 @@ apis:
   humanURL: >-
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
   - Balances
   properties:
@@ -182,6 +191,7 @@ apis:
   humanURL: >-
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
   - Beneficiaries
   properties:
@@ -193,6 +203,7 @@ apis:
   humanURL: >-
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
   - Consents
   properties:
@@ -204,6 +215,7 @@ apis:
   humanURL: >-
     https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
   - Transaction
   tags_raw:
@@ -232,6 +244,58 @@ common:
     url: https://apps.apple.com/us/app/connexis-cash-mobile/id1053068521
   - type: Support
     email: dl.cib.api.psd2.support@bnpparibas.com
+  - type: Documentation
+    url: >-
+      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  - type: APIReference
+    url: >-
+      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  - type: GettingStarted
+    url: https://developers.cib.bnpparibas.com/index.php/docs/get-started
+  - type: SignUp
+    url: https://developers.cib.bnpparibas.com/index.php/user/register
+  - type: Login
+    url: https://developers.cib.bnpparibas.com/index.php/user/login
+  - type: TermsOfService
+    url: https://developers.cib.bnpparibas.com/index.php/terms-of-use
+  - type: PrivacyPolicy
+    url: https://cib.bnpparibas.com/about/privacy-policy_a-38-60.html
+  - type: GitHubOrganization
+    url: https://github.com/bnpparibas
+  - type: OpenAPI
+    url: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+  - type: Overlay
+    url: >-
+      overlays/connexis-cash-account-information-psd2-stet-mock-overlay.yaml
+  - type: Conventions
+    url: conventions/connexis-cash-conventions.yml
+  - type: ErrorCatalog
+    url: errors/connexis-cash-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/connexis-cash-lifecycle.yml
+  - type: Conformance
+    url: conformance/connexis-cash-conformance.yml
+  - type: Compliance
+    url: conformance/connexis-cash-conformance.yml
+  - type: DataModel
+    url: data-model/connexis-cash-data-model.yml
+  - type: Sandbox
+    url: sandbox/connexis-cash-sandbox.yml
+  - type: Plans
+    url: plans/connexis-cash-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/connexis-cash-rate-limits.yml
+  - type: LLMsTxt
+    url: llms/connexis-cash-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: X-MCPServerCandidate
+    url: mcp/connexis-cash-mcp.yml
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

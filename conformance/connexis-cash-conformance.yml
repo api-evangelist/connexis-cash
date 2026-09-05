@@ -1,0 +1,142 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developers.cib.bnpparibas.com/index.php/system/files/api-ref-files/2022-02/BNP_CIB_CNX_PSD2_VSTET1.4_OAS3_v.1.4.0.47A3_SANDBOX%20%281%29_0.yaml
+  and https://developers.cib.bnpparibas.com/index.php/docs/psd2
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Standards the Connexis Cash PSD2 Account Information contract declares about itself.
+  Every entry below is evidenced against a location inside the published OpenAPI or a
+  page on the BNP Paribas CIB developer portal — none is inferred from marketing prose.
+conformance:
+  - id: stet-psd2
+    name: STET PSD2 API 1.4.0.47 (Full-AISP "A1" model)
+    conforms: true
+    evidence: >-
+      The published contract declares it in its own info block: `x-stet-version: 1.4.0.47`,
+      title "Account Information (PSD2 STET Mock)", and the description states "Our API is
+      based on STET (1.4.0.47) format" and "CONNEXIS CASH chose the Full-AISP model (A1 from
+      the STET documentation)".
+    location: info.x-stet-version, info.description
+    domain_standard: true
+  - id: psd2
+    name: EU Payment Services Directive 2 (PSD2) / RTS on SCA and CSC
+    conforms: true
+    evidence: >-
+      The portal publishes a dedicated PSD2 consumption guide, an SCA flow whose OTP carries
+      "a dynamic link as defined under Article 5 of the RTS", and quarterly PSD2 availability
+      and performance statistics under the RTS reporting obligation.
+    location: https://developers.cib.bnpparibas.com/index.php/docs/psd2
+  - id: eidas-qwac
+    name: eIDAS qualified website authentication certificate (QWAC) for TPP identification
+    conforms: true
+    evidence: >-
+      "The production environment can only be accessed according to the full STET standard and
+      requires a qwac certificate delivered by a QTSP" (published OpenAPI info.description).
+      Probing the production host confirms it — https://psd2.api.cib.bnpparibas.com/ answers
+      HTTP 400 "No required SSL certificate was sent" to any request without a client certificate.
+    location: info.description; live probe of the production gateway
+  - id: etsi-ts-119495
+    name: ETSI TS 119 495 (PSD2 certificate profile / organizationIdentifier)
+    conforms: true
+    evidence: >-
+      The OAuth2 security scheme description requires that "The client_id field within the token
+      request must be filled with the value of the organization identifier attribute that has been
+      set in the distinguished name of eIDAS certificate of the TPP, according to ETSI
+      recommandations (cf §5.2.1 of ts_119495)".
+    location: components.securitySchemes.OAuth2.description
+  - id: iso-20022
+    name: ISO 20022 business element naming
+    conforms: true
+    evidence: >-
+      Schema property descriptions carry explicit "ISO20022:" prefixes and the payload vocabulary is
+      ISO 20022 throughout — bicFi, cashAccountType (CACC/CARD/CASH/LOAN…), creditDebitIndicator
+      (CRDT/DBIT), balanceType (CLBD…), PostalAddress, ClearingSystemMemberIdentification,
+      CreditTransferTransaction, PurposeCode, ChargeBearerCode, CategoryPurposeCode.
+    location: components.schemas.AccountResource.properties.bicFi.description and ~50 sibling schemas
+    domain_standard: true
+  - id: iso-9362-bic
+    name: ISO 9362 Business Identifier Code
+    conforms: true
+    evidence: 'bicFi carries the ISO 9362 regex ^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}$ and cites the standard by name.'
+    location: components.schemas.AccountResource.properties.bicFi
+  - id: iso-13616-iban
+    name: ISO 13616 International Bank Account Number
+    conforms: true
+    evidence: 'AccountIdentification.iban cites ISO 13616 by name and enforces ^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$.'
+    location: components.schemas.AccountIdentification.properties.iban
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: >-
+      components.securitySchemes.OAuth2 declares type oauth2 with a clientCredentials flow
+      (tokenUrl https://api.sandbox.cib.bnpparibas.com/oauth2/v1/token) for the sandbox; the portal
+      documents the Authorization Code grant for production at
+      https://api.cib.bnpparibas.com/oauth2/v1/authorize.
+    location: components.securitySchemes.OAuth2
+  - id: hal
+    name: HAL / hypermedia navigation (_links)
+    conforms: true
+    evidence: >-
+      Every 200 body is a HAL structure — HalAccounts, HalBalances, HalTransactions, HalBeneficiaries
+      each require a _links member, and PsuContextLinks/TransactionsLinks carry self, first, prev,
+      next, last and parent-list relations.
+    location: components.schemas.HalAccounts, HalBalances, HalTransactions, HalBeneficiaries
+  - id: http-message-signatures
+    name: HTTP message signing (Digest + Signature request headers)
+    conforms: true
+    evidence: >-
+      A required `Signature` header ("http-signature of the request. The keyId must specify the way to
+      get the relevant qualified certificate") and an optional `Digest` header ("Digest of the body")
+      are declared as reusable parameters and applied to every operation.
+    location: components.parameters.SignatureHeader, components.parameters.DigestHeader
+  - id: pagination
+    name: Cursor + page pagination
+    conforms: true
+    evidence: >-
+      pageNumber and pageSize query parameters plus an afterEntryReference cursor
+      ("Only the transaction having a technical identification greater than this value must be
+      included within the result"), and next/prev/first/last HAL link relations.
+    location: components.parameters.pageNumber, pageSize, AfterEntryReference
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      No application/problem+json media type appears anywhere in the contract. Errors use a bespoke
+      envelope (ErrorModel — status, message, error, path, timestamp) served as application/json,
+      and several error responses are declared as */* with no schema at all.
+    location: components.schemas.ErrorModel, components.responses
+  - id: idempotency
+    name: Idempotency keys
+    conforms: false
+    evidence: >-
+      Not applicable rather than missing — the published Account Information surface is read-only
+      (four GET operations, no write). No Idempotency-Key header is declared and none is needed.
+    location: paths (all operations are GET)
+  - id: openid-connect
+    name: OpenID Connect discovery
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration was probed on developers.cib.bnpparibas.com (404),
+      cashmanagement.bnpparibas.com (404), psd2.api.cib.bnpparibas.com (400 mTLS challenge) and both
+      Apigee hosts (200 with a zero-byte body — a catch-all, not a document). No discovery document
+      is published.
+    location: well-known/connexis-cash-well-known.yml
+compliance:
+  programs:
+    - name: PSD2 availability and performance reporting (RTS Art. 32(4))
+      published: true
+      url: https://developers.cib.bnpparibas.com/index.php/docs/psd2-kpi
+      note: >-
+        Quarterly PDF statistics for the production PSD2 APIs, published from Q3 2019 through
+        Q1/Q2 2024. This is a regulatory reporting obligation the bank discharges publicly; it is
+        not a live status page.
+    - name: eIDAS / QTSP certificate requirement for production access
+      published: true
+      url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  certifications: []
+  certifications_note: >-
+    No SOC 2, ISO 27001, PCI DSS or trust-center page was found for the Connexis Cash or BNP Paribas
+    CIB developer surface. The compliance posture that IS published is regulatory (PSD2/RTS, eIDAS),
+    not an attestation programme.

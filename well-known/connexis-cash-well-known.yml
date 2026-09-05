@@ -1,0 +1,185 @@
+generated: '2026-09-05'
+method: probed
+source: live HTTPS probes of every host this record knows
+description: >-
+  Probe record for the RFC 8615 well-known paths across every host in the Connexis Cash
+  record — the BNP Paribas CIB developer portal, the Connexis Cash cash-management site,
+  the PSD2 production API gateway, the OAuth2 host, and the sandbox API host. No host
+  serves a well-known document. Two distinct non-document 200s were observed and are
+  recorded as misses, not hits: api.cib.bnpparibas.com and api.sandbox.cib.bnpparibas.com
+  answer 200 with a ZERO-BYTE body on every /.well-known/* path (an Apigee catch-all, not
+  a document), and psd2.api.cib.bnpparibas.com answers 400 "No required SSL certificate
+  was sent" on every path because the production gateway enforces mutual TLS with a QWAC
+  certificate before it will route anything.
+hosts:
+  - host: developers.cib.bnpparibas.com
+    note: BNP Paribas CIB developer portal (Drupal/Pronovix). /llms.txt and /.well-known/security.txt return 403 from an edge rule; every other well-known path is a clean 404.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: cashmanagement.bnpparibas.com
+    note: Connexis Cash / BNP Paribas Cash Management marketing site. All paths 404 with an HTML not-found page.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: psd2.api.cib.bnpparibas.com
+    note: PSD2 production gateway. Every path returns 400 "No required SSL certificate was sent" — mutual TLS with a QWAC eIDAS certificate is enforced at the edge, so no anonymous discovery is possible here by design.
+    documents:
+      - path: /.well-known/security.txt
+        status: 400
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 400
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 400
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 400
+        file: null
+      - path: /.well-known/api-catalog
+        status: 400
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 400
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 400
+        file: null
+      - path: /.well-known/agent.json
+        status: 400
+        file: null
+  - host: api.cib.bnpparibas.com
+    note: Production OAuth2 host (authorize + token). Answers 200 with a ZERO-BYTE body on every /.well-known/* path — an Apigee catch-all, NOT a served document. Recorded as a miss.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+  - host: api.sandbox.cib.bnpparibas.com
+    note: Sandbox API host named in the published OpenAPI servers[] block. Same zero-byte 200 catch-all as the production OAuth2 host. Recorded as a miss.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+  - host: www.bnpparibas.com
+    note: Group registrable domain. Every path is refused 403 "Access Denied" by the edge, including with a browser User-Agent — no document is observable.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+summary:
+  hosts_probed: 6
+  paths_probed: 48
+  documents_found: 0
+  pointer_emitted: false
+  pointer_note: >-
+    No WellKnown or SecurityTxt pointer is wired in apis.yml because not one path returned a
+    real document. The two 200s observed are zero-byte gateway catch-alls and the 400s are
+    an mTLS challenge — an absence, recorded, not a presence.

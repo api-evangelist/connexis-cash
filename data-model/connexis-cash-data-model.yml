@@ -1,0 +1,132 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Entity graph derived from the $ref links and identifier fields in the published PSD2 STET Account
+  Information contract. The vocabulary is ISO 20022 throughout — schema descriptions carry explicit
+  "ISO20022:" prefixes — so these entity names will be familiar to anyone who already speaks camt/pain.
+root: PSU (Payment Service User) context, reached through GET /v2/accounts
+entities:
+  - name: AccountResource
+    description: A PSU account made available to the TPP.
+    identifier:
+      field: resourceId
+      shape: ASPSP-assigned, 1-35 chars, pattern ^([a-zA-Z0-9 /\-?:\()\.,']{1,35})$
+      note: >-
+        resourceId is NOT the IBAN. The IBAN lives at accountId.iban. Every drill-down path takes the
+        resourceId as {accountResourceId}.
+    natural_keys: [accountId.iban, bicFi]
+    enums:
+      cashAccountType: [CACC, CARD, CASH, LOAN, OTHR, SVGS]
+      usage: [ORGA, PRIV]
+    served_by: [accountsGet]
+  - name: BalanceResource
+    description: One balance for one account.
+    required: [name, balanceAmount, balanceType]
+    enums:
+      balanceType: BalanceStatus (CLBD, XPCD, OTHR, VALU, ...)
+    served_by: [accountsBalancesGet]
+  - name: Transaction
+    description: One booked or pending entry on an account.
+    identifier:
+      field: entryReference
+      shape: technical incremental identification, max 40 chars
+      note: doubles as the pagination cursor via the afterEntryReference query parameter.
+    enums:
+      creditDebitIndicator: [CRDT, DBIT]
+      status: TransactionStatus (BOOK, PDNG, ...)
+    served_by: [accountsTransactionsGet]
+  - name: Beneficiary
+    description: A creditor the PSU has registered, optionally on the trusted (whitelist) list.
+    identifier:
+      field: id
+      shape: 1-35 chars
+    required: [creditor]
+    flags:
+      isTrusted: >-
+        Set by the ASPSP to say the beneficiary is on the trusted list; an ASPSP that has not
+        implemented the trusted list must not set it at all.
+    served_by: [trustedBeneficiariesGet]
+  - name: AccountIdentification
+    description: IBAN (ISO 13616) plus an optional other/GenericIdentification.
+    required: [iban]
+  - name: AmountType
+    description: ISO 20022 amount + ISO 4217 currency pair.
+  - name: PartyIdentification
+    description: Creditor party — name, postal address, identification.
+  - name: FinancialInstitutionIdentification
+    description: Creditor agent — BIC (ISO 9362) and clearing-system member id.
+  - name: ErrorModel
+    description: The error envelope. See errors/connexis-cash-problem-types.yml.
+relationships:
+  - from: AccountResource
+    to: BalanceResource
+    type: has_many
+    via: AccountResource.balances[] and _links.balances -> GET /v2/accounts/{accountResourceId}/balances
+  - from: AccountResource
+    to: Transaction
+    type: has_many
+    via: _links.transactions -> GET /v2/accounts/{accountResourceId}/transactions
+  - from: AccountResource
+    to: AccountIdentification
+    type: has_one
+    via: AccountResource.accountId
+  - from: BalanceResource
+    to: AmountType
+    type: has_one
+    via: BalanceResource.balanceAmount
+  - from: Transaction
+    to: AmountType
+    type: has_one
+    via: Transaction.transactionAmount
+  - from: Transaction
+    to: ResourceId
+    type: has_one
+    via: Transaction.resourceId
+  - from: Beneficiary
+    to: AccountIdentification
+    type: has_one
+    via: Beneficiary.creditorAccount
+  - from: Beneficiary
+    to: FinancialInstitutionIdentification
+    type: has_one
+    via: Beneficiary.creditorAgent
+  - from: Beneficiary
+    to: PartyIdentification
+    type: has_one
+    via: Beneficiary.creditor
+  - from: PartyIdentification
+    to: PostalAddress
+    type: has_one
+    via: PartyIdentification.postalAddress
+collections:
+  - wrapper: HalAccounts
+    holds: AccountResource[]
+    links: PsuContextLinks (self, first, prev, next, last, beneficiaries)
+  - wrapper: HalBalances
+    holds: BalanceResource[]
+    links: BalancesLinks
+  - wrapper: HalTransactions
+    holds: Transaction[]
+    links: TransactionsLinks (self, parent-list, balances, first, prev, next, last)
+  - wrapper: HalBeneficiaries
+    holds: Beneficiary[]
+    links: BeneficiariesLinks
+unreachable_schemas:
+  note: >-
+    The published contract carries the full STET component library, including payment-initiation
+    schemas — PaymentRequestResource, CreditTransferTransaction, PaymentCoverageRequestResource,
+    ConfirmationResource, HalPaymentRequest and friends. NONE of them is reachable from any path in
+    this document; the four operations are all AISP reads. They are shared STET components shipped
+    with the file, not a payment API Connexis Cash exposes here. Do not build against them from this
+    contract.
+  schemas:
+    - PaymentRequestResource
+    - PaymentCoverageRequestResource
+    - CreditTransferTransaction
+    - ConfirmationResource
+    - HalPaymentRequest
+    - HalPaymentRequestCreation
+    - HalPaymentCoverageReport

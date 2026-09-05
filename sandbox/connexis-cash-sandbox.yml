@@ -1,0 +1,86 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock,
+  https://developers.cib.bnpparibas.com/index.php/docs/try-via-portal,
+  https://developers.cib.bnpparibas.com/index.php/docs/try-api-prg,
+  openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  BNP Paribas CIB publishes a real, self-serve sandbox for the Connexis Cash PSD2 Account Information
+  API. It is the only environment a developer can reach without an eIDAS certificate and an EBA
+  reference code, and it is a separate host from production.
+available: true
+environments:
+  - name: sandbox
+    base_url: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
+    token_url: https://api.sandbox.cib.bnpparibas.com/oauth2/v1/token
+    auth: OAuth2 client_credentials — 'On the sandbox environment, Client_credential is the only OAuth 2.0 flow available.'
+    client_certificate_required: false
+    data: >-
+      Simulated. 'Those APIs return fake data. No sensitive information shall be shared through the
+      sandbox environment.'
+    fallback_available: false
+    fallback_note: The PSD2 fallback mechanism is explicitly not available in the sandbox.
+  - name: production
+    base_url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+    token_url: https://api.cib.bnpparibas.com/oauth2/v1/token
+    authorize_url: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    auth: OAuth2 authorization_code
+    client_certificate_required: true
+    client_certificate_note: >-
+      Requires a QWAC delivered by a QTSP. Confirmed live — an anonymous HTTPS request to this host
+      returns 400 'No required SSL certificate was sent'.
+onboarding:
+  self_serve: true
+  steps:
+    - Register on the portal with a username and email — https://developers.cib.bnpparibas.com/index.php/user/register
+    - Create an app to obtain an API key and secret
+    - Subscribe the app to the API
+    - 'Wait for authorisation: the portal states "We will authorize your app within 24h."'
+  production_step: >-
+    Manual. The TPP emails its QWAC certificate, callback URL and EBA reference code to
+    dl.cib.api.psd2.support@bnpparibas.com.
+  docs: https://developers.cib.bnpparibas.com/index.php/docs/get-started
+try_it:
+  in_portal_console: true
+  in_portal_note: >-
+    The api-docs page runs a Swagger UI with live submit enabled for get/put/post/delete/options/head/patch
+    and an OAuth2 redirect handler at
+    https://developers.cib.bnpparibas.com/libraries/swagger-ui/dist/oauth2-redirect.html
+  programmatic_guide: https://developers.cib.bnpparibas.com/index.php/docs/try-api-prg
+  postman: >-
+    The docs page renders a "Run in Postman" button generated client-side from the OpenAPI. No public
+    Postman collection or workspace URL is published, so no Postman pointer is claimed.
+test_data:
+  published_fixtures: false
+  note: >-
+    BNP Paribas publishes no table of test accounts, test IBANs or magic identifiers. What the contract
+    does carry is 31 inline `example` values on its schemas — the shape of the simulated data, not
+    credentials. A few are reproduced below verbatim from the published spec purely so an integrator
+    knows what the mock returns; they are illustrative payload examples, not secrets.
+  contract_examples:
+    account:
+      resourceId: '1306171745'
+      accountId.iban: PL97-2350-0002-0110-0099-0018-9978
+      bicFi: BNPAPLPXXXX
+      currency: EUR
+      cashAccountType: CACC
+      usage: ORGA
+    balance:
+      balanceType: CLBD
+      name: Ledger Booked 2018-06-20
+      balanceAmount: {amount: '12002', currency: EUR}
+      referenceDate: '2018-06-20'
+    transaction:
+      status: BOOK
+      creditDebitIndicator: DBIT
+      transactionAmount: {amount: '500', currency: DKK}
+      bookingDate: '2018-11-22'
+      remittanceInformation: /BENM/ANGULAR
+test_clock: false
+gaps:
+  - No published set of deterministic test identifiers, so a test suite cannot assert on a known account.
+  - No sandbox reset, seeding or trigger tooling is documented.
+  - The sandbox supports only client_credentials, so the SCA and consent journey a production integration must handle cannot be rehearsed there at all.

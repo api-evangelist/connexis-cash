@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "connexis-cash-accounts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "connexis-cash-balances-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "connexis-cash-beneficiaries-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "connexis-cash-consents-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "connexis-cash-transactions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

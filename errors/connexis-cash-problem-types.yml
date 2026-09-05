@@ -1,0 +1,144 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Error catalog derived from the 4xx/5xx responses declared in the BNP Paribas CIB published
+  PSD2 STET Account Information contract. Titles and descriptions are the provider's own wording.
+format: bespoke
+format_note: >-
+  NOT RFC 9457. No application/problem+json media type appears in the contract. The typed error body
+  is `ErrorModel` served as application/json on 401, 404 and 429; the remaining error responses are
+  declared as `*/*` with no schema, so a client cannot rely on a parseable body for them.
+envelope:
+  media_type: application/json
+  schema: ErrorModel
+  fields:
+    - name: status
+      type: integer
+      required: true
+      description: HTTP error code
+    - name: message
+      type: string
+      required: true
+      description: HTTP textual reason phrase (max 140 chars)
+    - name: error
+      type: string
+      required: false
+      description: HTTP error text (max 140 chars)
+    - name: path
+      type: string
+      required: false
+      description: Relevant path that was used (max 140 chars)
+    - name: timestamp
+      type: string
+      required: false
+      description: Current timestamp (date-time)
+  provider_example:
+    status: 4XX or 5XX
+    message: >-
+      The reason why, for example, error code 404, you will get massage: Not found, no request available.
+    error: Standard HTTP Status error code
+    path: /v1/(this request path)
+    timestamp: '2019-01-01T00:00:00.000+0000'
+correlation:
+  request_header:
+    name: X-Request-ID
+    required: true
+    description: Correlation header to be set in a request and retrieved in the relevant response (max 70 chars)
+  response_headers:
+    - name: X-Request-ID
+      returned_on: '204, 400, 403, 405, 406, 408, 500, 503'
+    - name: x-correlation-id
+      returned_on: '401, 404, 429'
+      note: >-
+        The contract is inconsistent here — the typed (application/json) error responses echo
+        `x-correlation-id` while the untyped `*/*` responses echo `X-Request-ID`. An agent must read
+        both to trace a failed call.
+problem_types:
+  - status: 400
+    title: Invalid status value
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsBalancesGet, accountsTransactionsGet]
+    remediation: Check query parameter formats — entryDateFrom/entryDateTo are date-time, pageNumber/pageSize are int32, afterEntryReference is a 40-char technical reference.
+  - status: 401
+    title: Unauthorized, Access token is missing or invalid.
+    media_type: application/json
+    typed_body: true
+    schema: ErrorModel
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: >-
+      Re-mint the OAuth2 token. In sandbox that is a client_credentials grant against
+      https://api.sandbox.cib.bnpparibas.com/oauth2/v1/token; in production it is an authorization_code
+      grant against https://api.cib.bnpparibas.com/oauth2/v1/token with client_id set to the eIDAS
+      certificate organizationIdentifier.
+  - status: 403
+    title: Forbidden, authentication successful but access to resource is not allowed.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: >-
+      The token authenticated but the scope or the PSU consent does not cover the resource. Confirm the
+      granted scope (aisp) and that the PSU completed SCA through Connexis Cash for this account.
+  - status: 404
+    title: Not found, no resource available.
+    media_type: application/json
+    typed_body: true
+    schema: ErrorModel
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: Re-read accountResourceId from GET /v2/accounts — resource ids are ASPSP-assigned and are not IBANs.
+  - status: 405
+    title: Method Not Allowed.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: The Account Information surface is read-only; only GET is routed.
+  - status: 406
+    title: Not Acceptable.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: Send Accept application/json (or */*); the contract advertises no other representation.
+  - status: 408
+    title: Request Timeout.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet]
+    remediation: Retry — GETs are safe and repeatable. Narrow entryDateFrom/entryDateTo or reduce pageSize on large transaction sets.
+  - status: 429
+    title: Too many requests.
+    media_type: application/json
+    typed_body: true
+    schema: ErrorModel
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: >-
+      Back off and retry. NOTE — no Retry-After or RateLimit-* response header is declared anywhere in
+      the contract and no numeric limit is published, so a client has to infer its own backoff. See
+      rate-limits/connexis-cash-rate-limits.yml.
+  - status: 500
+    title: Internal server error.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet]
+    remediation: Retry with backoff; if it persists, quote the X-Request-ID to dl.cib.api.psd2.support@bnpparibas.com.
+  - status: 503
+    title: Service unavailable.
+    media_type: '*/*'
+    typed_body: false
+    operations: [accountsGet, accountsBalancesGet, accountsTransactionsGet]
+    remediation: >-
+      ASPSP downtime. Under PSD2 the fallback interface applies — the bank names
+      https://connexis.bnpparibas.com/ as the fallback and states the fallback is not available in the
+      sandbox.
+  - status: 204
+    title: No content.
+    media_type: none
+    typed_body: false
+    note: Declared alongside the error set on every operation; an empty successful result, not a failure.
+gaps:
+  - Seven of the ten declared error statuses carry no schema (media type `*/*`), so an agent cannot parse them.
+  - No error code registry beyond the HTTP status — the ErrorModel carries free text, not an enumerated business code.
+  - No RFC 9457 problem+json, and no `type` URI to key remediation off.
+  - Two different correlation headers are returned depending on which branch of the error set fires.

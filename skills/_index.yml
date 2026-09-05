@@ -1,0 +1,39 @@
+generated: '2026-09-05'
+method: generated
+source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Packaged Agent Skills for the Connexis Cash PSD2 STET Account Information API. Every skill is grounded
+  in an operationId that exists in the contract BNP Paribas CIB publishes — accountsGet,
+  accountsBalancesGet, accountsTransactionsGet, trustedBeneficiariesGet. No skill invents an operation,
+  and none of them writes, because the published surface has no write operation.
+api: Connexis Cash PSD2 Account Information API (STET)
+spec: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+skills:
+  - name: connexis-cash-account-discovery
+    file: connexis-cash-account-discovery.md
+    operations: [accountsGet]
+    summary: Resolve the PSU's accounts and the ASPSP resourceId every other call needs.
+    prerequisite_for: [connexis-cash-balance-reporting, connexis-cash-transaction-retrieval]
+  - name: connexis-cash-balance-reporting
+    file: connexis-cash-balance-reporting.md
+    operations: [accountsGet, accountsBalancesGet]
+    summary: Pull a balance report and read ISO 20022 balance types without conflating them.
+  - name: connexis-cash-transaction-retrieval
+    file: connexis-cash-transaction-retrieval.md
+    operations: [accountsGet, accountsTransactionsGet]
+    summary: Page and incrementally sync transactions using the entryReference cursor.
+  - name: connexis-cash-trusted-beneficiaries
+    file: connexis-cash-trusted-beneficiaries.md
+    operations: [trustedBeneficiariesGet]
+    summary: Read the trusted beneficiaries list and interpret an absent isTrusted flag correctly.
+shared_preconditions:
+  - OAuth2 token carrying the aisp scope.
+  - 'Production only: mutual TLS with an eIDAS QWAC, and client_id set to the certificate organizationIdentifier (ETSI TS 119 495 §5.2.1).'
+  - Required headers on every call — X-Request-ID (max 70) and Signature. Digest optional.
+  - PSU-* context headers forwarded when the call is PSU-initiated.
+shared_error_handling: errors/connexis-cash-problem-types.yml
+shared_conventions: conventions/connexis-cash-conventions.yml
+idempotency: na — every operation is a GET; there is no write to replay.
+reversibility: na — read-only surface; there is no action to take back.

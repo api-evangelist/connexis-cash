@@ -1,9 +1,52 @@
-generated: '2026-07-11'
+generated: '2026-09-05'
 method: derived
-source: openapi/connexis-cash-openapi.yml
+source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml, openapi/connexis-cash-accounts-api-openapi.yml,
+  openapi/connexis-cash-balances-api-openapi.yml, openapi/connexis-cash-beneficiaries-api-openapi.yml,
+  openapi/connexis-cash-consents-api-openapi.yml, openapi/connexis-cash-transactions-api-openapi.yml
 schemes:
+- name: OAuth2
+  source: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.sandbox.cib.bnpparibas.com/oauth2/v1/token
+  description: |-
+    In order to access each of the 3 scopes in Production environment, the TPP needs to get an authorization code grant OAUTH2 token.
+    The client_id field within the token request must be filled with the value of the organization identifier attribute that has been set in the distinguished name of eIDAS certificate of the TPP, according to ETSI recommandations.
+    (cf §5.2.1 of https://docbox.etsi.org/ESI/Open/Latest_Drafts/ts_119495v000003_for-public-review.pdf)
 - name: oauth2
-  source: openapi/connexis-cash-openapi.yml
+  source: openapi/connexis-cash-accounts-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+- name: oauth2
+  source: openapi/connexis-cash-balances-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+- name: oauth2
+  source: openapi/connexis-cash-beneficiaries-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+- name: oauth2
+  source: openapi/connexis-cash-consents-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+  - flow: clientCredentials
+    tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
+- name: oauth2
+  source: openapi/connexis-cash-transactions-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://api.cib.bnpparibas.com/oauth2/v1/authorize
@@ -12,9 +55,26 @@ schemes:
     tokenUrl: https://api.cib.bnpparibas.com/oauth2/v1/token
 scopes:
 - scope: aisp
-  description: Account Information Service
+  description: Access by an AISP to one given PSU's account
   flows:
   - authorizationCode
   - clientCredentials
   sources:
-  - openapi/connexis-cash-openapi.yml
+  - openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+  - openapi/connexis-cash-accounts-api-openapi.yml
+  - openapi/connexis-cash-balances-api-openapi.yml
+  - openapi/connexis-cash-beneficiaries-api-openapi.yml
+  - openapi/connexis-cash-consents-api-openapi.yml
+  - openapi/connexis-cash-transactions-api-openapi.yml
+- scope: cib-gb-account-information-psd2-stet-mock:piisp
+  description: Access by a PIISP to one given PSU's account to check payment coverage
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+- scope: cib-gb-account-information-psd2-stet-mock:pisp
+  description: Access by a PISP to payments resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml

@@ -1,0 +1,183 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml,
+  https://developers.cib.bnpparibas.com/index.php/docs/auth2-ac-psd2,
+  https://developers.cib.bnpparibas.com/index.php/docs/sca
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Cross-cutting runtime semantics for the Connexis Cash PSD2 STET Account Information API, read from
+  the contract BNP Paribas CIB publishes and the portal pages that document its OAuth2 and SCA flows.
+authentication:
+  style: OAuth2 bearer token over mutual TLS
+  sandbox:
+    flow: client_credentials
+    token_url: https://api.sandbox.cib.bnpparibas.com/oauth2/v1/token
+    client_tls: not required
+  production:
+    flow: authorization_code
+    authorize_url: https://api.cib.bnpparibas.com/oauth2/v1/authorize
+    token_url: https://api.cib.bnpparibas.com/oauth2/v1/token
+    client_tls: eIDAS QWAC required (the gateway answers 400 "No required SSL certificate was sent" without one)
+    client_id_rule: >-
+      client_id must be the organizationIdentifier from the distinguished name of the TPP's eIDAS
+      certificate, per ETSI TS 119 495 §5.2.1.
+  token_lifetime:
+    access_token_expires_in: 1799 seconds
+    refresh_token_expires_in: 7775999 seconds
+    source: the sample token response published at /index.php/docs/auth2-ac-psd2
+  scopes: [aisp, pisp, piisp]
+  strong_customer_authentication:
+    required: true
+    where: at token generation, and again for PISP payment authorisation
+    factors: Connexis Cash Authentication ID plus a 6-digit OTP from a physical token or the Connexis Pass mobile app
+    dynamic_linking: 'the payment challenge code carries a dynamic link as defined under Article 5 of the RTS'
+    docs: https://developers.cib.bnpparibas.com/index.php/docs/sca
+  cross_link: authentication/connexis-cash-authentication.yml, scopes/connexis-cash-scopes.yml
+request_signing:
+  required: true
+  headers:
+    - name: Signature
+      required: true
+      description: >-
+        http-signature of the request. The keyId must specify the way to get the relevant qualified
+        certificate; the bank asks that this identifier be a URL serving that certificate.
+    - name: Digest
+      required: false
+      description: Digest of the body.
+  note: >-
+    Declared as reusable components.parameters and applied to every operation. This is the STET/Berlin-era
+    HTTP signature convention, not RFC 9421 HTTP Message Signatures.
+idempotency:
+  supported: false
+  coverage: na
+  scope: []
+  header: null
+  note: >-
+    `na`, not `none`. The published Account Information surface has no mutating operation — all four
+    operations are GET (accountsGet, accountsBalancesGet, accountsTransactionsGet,
+    trustedBeneficiariesGet), which are safe and repeatable by definition. No Idempotency-Key header is
+    declared and none is required. If BNP Paribas CIB later publishes the PISP payment-initiation
+    contract on this portal, idempotency becomes a live question for that surface and must be
+    re-measured there.
+reversibility:
+  grade: na
+  applicable: false
+  write_surfaces: []
+  note: >-
+    Read-only API. There is no action an agent can take through this contract that could need taking
+    back, so reversibility is not applicable rather than absent. No reversal operation and no reversal
+    window is asserted, because the docs state none and inventing one here could cost a user money.
+dry_run_mode:
+  supported: na
+  note: >-
+    Not applicable on a read-only surface. The nearest equivalent BNP Paribas does publish is a full
+    sandbox that returns simulated data — see sandbox/connexis-cash-sandbox.yml.
+pagination:
+  style: page-number plus an opaque forward cursor, with HAL link relations
+  parameters:
+    - name: pageNumber
+      in: query
+      type: int32
+      description: Specifies a page number in case of a pagination.
+    - name: pageSize
+      in: query
+      type: int32
+      description: Specifies the number of transactions to be displayed in the page in case of pagination.
+    - name: afterEntryReference
+      in: query
+      type: string(40)
+      description: >-
+        Cursor. Only the transaction having a technical identification greater than this value must be
+        included within the result.
+  response_fields:
+    - _links.self
+    - _links.first
+    - _links.prev
+    - _links.next
+    - _links.last
+    - _links.parent-list
+  note: >-
+    Follow _links.next rather than incrementing pageNumber — the HAL relations are the navigation the
+    contract guarantees. Default and maximum page sizes are not published.
+hypermedia:
+  style: HAL
+  envelope_field: _links
+  collection_wrappers: [HalAccounts, HalBalances, HalTransactions, HalBeneficiaries]
+  drill_down:
+    - from: GET /v2/accounts
+      via: _links.balances
+      to: GET /v2/accounts/{accountResourceId}/balances
+    - from: GET /v2/accounts
+      via: _links.transactions
+      to: GET /v2/accounts/{accountResourceId}/transactions
+    - from: GET /v2/accounts
+      via: _links.beneficiaries
+      to: GET /v2/trusted-beneficiaries
+  note: >-
+    Example _links hrefs inside the published contract still carry a `v1/` prefix while the paths
+    themselves are `/v2/` — a documentation inconsistency a client following links literally will trip on.
+filtering:
+  transactions:
+    - name: entryDateFrom
+      description: Inclusive minimal imputation date. Transactions on this date ARE included.
+    - name: entryDateTo
+      description: Exclusive maximal imputation date. Transactions on this date are NOT included.
+  note: The inclusive/exclusive asymmetry is the provider's own wording and is easy to get wrong.
+request_id_tracing:
+  header: X-Request-ID
+  required: true
+  max_length: 70
+  echoed_on: >-
+    200 responses and on 204/400/403/405/406/408/500/503. The 401/404/429 branch echoes
+    `x-correlation-id` instead — read both.
+versioning:
+  style: major version in the path (/v2)
+  current: 2.0.0
+  cross_link: lifecycle/connexis-cash-lifecycle.yml
+error_envelope:
+  format: bespoke JSON (status, message, error, path, timestamp)
+  problem_json: false
+  cross_link: errors/connexis-cash-problem-types.yml
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  headers_published: none
+  note: >-
+    A 429 "Too many requests" response is declared on every operation but the contract publishes no
+    Retry-After, no RateLimit-* and no X-RateLimit-* header, and the portal publishes no numeric limit.
+    An agent gets a stop signal with no recovery hint.
+  cross_link: rate-limits/connexis-cash-rate-limits.yml
+media_types:
+  request: none (no request bodies — read-only surface)
+  success_response: application/json
+  error_response: application/json on 401/404/429; '*/*' with no schema on the rest
+psu_context_headers:
+  note: >-
+    STET requires the AISP to forward the end user's browsing context when the call is PSU-initiated.
+    The contract declares the full set as reusable parameters.
+  headers:
+    - PSU-IP-Address
+    - PSU-IP-Port
+    - PSU-Http-Method
+    - PSU-Date
+    - PSU-GEO-Location
+    - PSU-User-Agent
+    - PSU-Referer
+    - PSU-Accept
+    - PSU-Accept-Charset
+    - PSU-Accept-Encoding
+    - PSU-Accept-Language
+    - PSU-Device-ID
+  agent_note: >-
+    This matters for autonomous callers. These headers describe a human's browser session. An agent
+    polling on a schedule has no PSU context to forward, and the ASPSP may treat an unattended call
+    differently from a PSU-initiated one under the RTS 90-day re-authentication rule.
+consent_model:
+  model: Full-AISP (STET "A1")
+  note: >-
+    "CONNEXIS CASH does not require to be informed of the details of the PSU consent. Whatever the AISP
+    request, the CONNEXIS CASH will respond, being unable to check the compliance of the request against
+    the user choices." The PUT /consents request belongs to the Mixed (A2) model and, in the bank's own
+    words, "CONNEXIS Cash will not implement such request in the sandbox environment and in the
+    production environment."

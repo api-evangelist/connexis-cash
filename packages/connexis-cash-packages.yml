@@ -1,0 +1,40 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, api.github.com/orgs/bnpparibas,
+  https://developers.cib.bnpparibas.com/index.php/docs/try-api-prg
+provider: Connexis Cash
+providerId: connexis-cash
+description: >-
+  Client-library search for the Connexis Cash / BNP Paribas CIB PSD2 API surface. No first-party SDK
+  exists in any public registry, and the provider's own "trying APIs programmatically" page does not
+  offer one — it tells the developer to download the OpenAPI file and drive it from Postman or their
+  own code.
+packages: []
+package_count: 0
+official_sdk_count: 0
+searched:
+  - registry: npm
+    queries: [connexis, bnp-paribas, bnpparibas]
+    result: >-
+      No first-party package. The @connexis/* scope on npm (@connexis/core, /react, /transport-websocket,
+      1.0.7) is an unrelated connection-management library with no relationship to BNP Paribas.
+  - registry: PyPI
+    queries: [connexis, bnpparibas]
+    result: 404 on both — no package.
+  - registry: GitHub
+    queries: [org:bnpparibas, "connexis cash"]
+    result: >-
+      github.com/bnpparibas exists but holds a single public repository (physrisk, a physical climate
+      risk engine). No API client, no PSD2 tooling, no Connexis Cash code.
+  - registry: Maven Central / NuGet / RubyGems / crates.io / Packagist / pkg.go.dev
+    queries: [connexis, bnpparibas]
+    result: not searched individually — the provider publishes no SDK links at all, so there is no first-party candidate to verify.
+provider_position: >-
+  The portal's own guidance (/index.php/docs/try-api-prg) is: "Download the API Open API Specification
+  (hyperlink below the API description)" and call it with Postman or your own client. BNP Paribas CIB
+  ships a contract, not a library. For a PSD2 AISP that is a defensible choice — the mutual-TLS/QWAC
+  handshake and the eIDAS certificate handling are the hard part, and no generic SDK removes them.
+no_sdks_pointer_note: >-
+  No `SDKs` pointer is wired in apis.yml, because there is no SDK. Recording the searched absence here
+  is the finding.

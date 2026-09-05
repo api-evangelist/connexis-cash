@@ -1,0 +1,87 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Connexis Cash PSD2 STET Account Information
+  version: 1.0.0
+extends: ../openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+x-generated: '2026-09-05'
+x-method: generated
+x-source: >-
+  Derived from the provider-published contract plus the BNP Paribas CIB portal pages. Every action
+  below adds metadata we can evidence; nothing rewrites the provider's own semantics, and the original
+  spec file is never mutated.
+actions:
+  - target: $.info
+    description: Record the provenance of the contract itself.
+    update:
+      x-apievangelist-source: https://developers.cib.bnpparibas.com/index.php/system/files/api-ref-files/2022-02/BNP_CIB_CNX_PSD2_VSTET1.4_OAS3_v.1.4.0.47A3_SANDBOX%20%281%29_0.yaml
+      x-apievangelist-harvested: '2026-09-05'
+      x-apievangelist-published: '2022-02'
+      x-apievangelist-note: >-
+        The file path on the provider's own portal dates the contract to February 2022; it has not been
+        republished since.
+  - target: $.servers
+    description: >-
+      The published servers[] block names only the sandbox host. Add the production host the docs and
+      the info.description state, so a client can select an environment from the contract.
+    update:
+      - url: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
+        description: Sandbox — simulated data, OAuth2 client_credentials only, no client certificate.
+        x-environment: sandbox
+      - url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+        description: >-
+          Production — live PSU data. Requires OAuth2 authorization_code AND mutual TLS with an eIDAS
+          QWAC. Stated in info.description and confirmed by probe (HTTP 400 "No required SSL
+          certificate was sent" without a client certificate).
+        x-environment: production
+        x-requires-client-certificate: true
+  - target: $
+    description: >-
+      The document declares no top-level `security`, even though every operation requires the aisp
+      scope. Make the default explicit.
+    update:
+      security:
+        - OAuth2: [aisp]
+  - target: $.tags
+    description: The document has no tags[] declaration although every operation is tagged AISP.
+    update:
+      - name: AISP
+        description: >-
+          Account Information Service Provider operations — reading a PSU's accounts, balances,
+          transactions and trusted beneficiaries under a Full-AISP (STET A1) consent model.
+  - target: $.paths['/v2/accounts'].get
+    description: Record that this is the entry point and the source of every accountResourceId.
+    update:
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        reversible: na
+      x-apievangelist-entrypoint: true
+      x-apievangelist-note: >-
+        resourceId returned here — not the IBAN — is the {accountResourceId} for the balances and
+        transactions paths.
+  - target: $.paths['/v2/accounts/{accountResourceId}/transactions'].get
+    description: Flag the inclusive/exclusive date asymmetry, which is the easiest error to make here.
+    update:
+      x-apievangelist-note: >-
+        entryDateFrom is INCLUSIVE and entryDateTo is EXCLUSIVE. Paginate by following _links.next or
+        by passing the last entryReference as afterEntryReference; do not increment pageNumber blindly.
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        reversible: na
+  - target: $.components.responses['429']
+    description: >-
+      Record that the throttling response carries no recovery signal, so a client must supply its own
+      backoff policy.
+    update:
+      x-apievangelist-note: >-
+        No Retry-After, RateLimit-* or X-RateLimit-* header is declared, and no numeric limit is
+        published anywhere on the portal. Treat 429 as an opaque stop and apply exponential backoff
+        with jitter.
+  - target: $.components.schemas.ErrorModel
+    description: State plainly that this is not RFC 9457.
+    update:
+      x-apievangelist-note: >-
+        Bespoke error envelope, served as application/json on 401/404/429 only. It is not
+        application/problem+json and carries no `type` URI. The remaining error statuses are declared
+        as */* with no schema.

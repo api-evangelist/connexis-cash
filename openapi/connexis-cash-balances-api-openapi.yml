@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Balances API
   description: 'PSD2 Account Information Service (AISP) for BNP Paribas Connexis Cash,
@@ -45,13 +45,6 @@ paths:
                 $ref: '#/components/schemas/BalanceList'
 components:
   schemas:
-    BalanceList:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Balance'
     Balance:
       type: object
       properties:
@@ -72,6 +65,13 @@ components:
         lastChangeDateTime:
           type: string
           format: date-time
+    BalanceList:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
   securitySchemes:
     oauth2:
       type: oauth2

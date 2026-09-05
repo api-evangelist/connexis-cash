@@ -1,0 +1,111 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock,
+  https://developers.cib.bnpparibas.com/index.php/docs/psd2-kpi,
+  openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+provider: Connexis Cash
+providerId: connexis-cash
+versioning:
+  scheme: major version in the URL path
+  current_version: 2.0.0
+  standard_version: STET 1.4.0.47 (declared as info.x-stet-version)
+  path_prefix: /v2
+  status: Live
+  note: >-
+    The developer portal lists the API as version 2.0.0 with status "Live". The contract's own
+    x-stet-version pins the underlying standard release (1.4.0.47), which is the number that actually
+    governs the payload shape — the API version and the standard version move independently.
+  policy_published: false
+  policy_note: No written versioning or version-support policy was found on the portal.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no Sunset or Deprecation response header in the contract, and no operation
+    is flagged deprecated. Nothing is being asserted about how long a version lives.
+status_page:
+  live_status_page: false
+  note: >-
+    No live/real-time status page exists for the PSD2 surface. What the bank does publish is the PSD2
+    availability and performance statistics required by the RTS — quarterly PDFs — which is a
+    regulatory report, not an incident channel, and is recorded below rather than as a StatusPage.
+availability_reporting:
+  published: true
+  url: https://developers.cib.bnpparibas.com/index.php/docs/psd2-kpi
+  cadence: quarterly
+  format: PDF
+  basis: PSD2 RTS availability and performance reporting obligation
+  earliest_period: Q3 2019
+  latest_period_published: Q1 2024
+  staleness_note: >-
+    The page's own period selector runs to Q2 2024, but the newest downloadable file linked on the page
+    is /sites/default/files/inline-files/Q1_2024.pdf. Nothing later than 2024 is published, so the
+    availability record has been dormant for roughly two years as of this pass.
+sla:
+  published: false
+  note: No SLA or uptime commitment is published on the developer portal.
+changelog:
+  published: false
+  note: >-
+    No dated changelog, release-notes page or news feed exists on developers.cib.bnpparibas.com. The
+    only dated artifact on the portal is the quarterly KPI PDF series. The published OpenAPI file is
+    itself dated by its storage path — /system/files/api-ref-files/2022-02/ — i.e. February 2022,
+    which is the last time the contract was republished.
+support:
+  channel: email
+  contact: dl.cib.api.psd2.support@bnpparibas.com
+  note: >-
+    Production onboarding is manual — "the TPP should provide its QWAC certificate, callback URL, and
+    EBA reference code" to the support mailbox. Self-serve registration exists for the sandbox only.
+fallback:
+  published: true
+  url: https://connexis.bnpparibas.com/
+  note: >-
+    PSD2 fallback interface. The contract states the fallback mechanism is not available in the sandbox
+    environment.
+environments:
+  - name: sandbox
+    host: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
+    auth: OAuth2 client_credentials only
+    data: simulated
+    open_to: any registered portal account
+  - name: production
+    host: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+    auth: OAuth2 authorization_code + mutual TLS with an eIDAS QWAC
+    data: live PSU data
+    open_to: onboarded TPPs holding an EBA reference code
+catalog_note:
+  finding: >-
+    CONTRACT MISMATCH IN THIS REPO, raised for a follow-up pass. Before this round the only spec in the
+    repo was openapi/_original/connexis-cash-openapi.yml (240 lines, six /v1/ paths, no operationIds)
+    and five tag-split files derived from it. The contract BNP Paribas CIB actually publishes — now
+    harvested to openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml — is OpenAPI
+    3.0.0, ~100KB, version 2.0.0, with FOUR /v2/ paths and real operationIds.
+  specific_conflicts:
+    - >-
+      The pre-existing spec declares POST /v1/consents. The published contract states in its own
+      description that "CONNEXIS Cash will not implement such request in the sandbox environment and in
+      the production environment", because Connexis Cash uses the Full-AISP (A1) model. That operation
+      does not exist.
+    - The path version differs — /v1/* versus the published /v2/*.
+    - >-
+      The pre-existing spec names only the production host; the published contract's servers[] names
+      the sandbox host, and the production host is stated in prose.
+  affected_files:
+    - openapi/_original/connexis-cash-openapi.yml
+    - openapi/connexis-cash-accounts-api-openapi.yml
+    - openapi/connexis-cash-balances-api-openapi.yml
+    - openapi/connexis-cash-beneficiaries-api-openapi.yml
+    - openapi/connexis-cash-consents-api-openapi.yml
+    - openapi/connexis-cash-transactions-api-openapi.yml
+    - collections/ (all twelve Postman/OpenCollection files, derived from the above)
+    - 'apis[] entries: connexis-cash-accounts-api, -balances-api, -beneficiaries-api, -consents-api, -transactions-api'
+  action_needed: >-
+    Re-split the harvested contract and repoint (or retire) the five tag-split apis[] entries and their
+    collections. This pass did not delete them, because removing an aid moves or deletes every page that
+    aid owns on apis.io, which is a decision for a deliberate pass rather than an enrichment run.
+  raised: '2026-09-05'
