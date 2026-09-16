@@ -1,15 +1,11 @@
 aid: connexis-cash
 name: Connexis Cash
-description: >-
-  Connexis Cash is BNP Paribas's corporate digital banking and cash
-  management platform. It gives multinational corporates a unified online
-  channel for payment initiation, real-time payment tracking, account
-  reporting, reconciliation, and liquidity management across BNP Paribas's
-  global network. Connexis Cash also exposes PSD2-compliant Open Banking
-  APIs through the BNP Paribas CIB developer portal so that third-party
-  providers (TPPs) can retrieve account information and initiate payments
-  on behalf of Connexis Cash users, as well as a Strong Customer
-  Authentication (SCA) flow.
+description: Connexis Cash is BNP Paribas's corporate digital banking and cash management platform. It
+  gives multinational corporates a unified online channel for payment initiation, real-time payment tracking,
+  account reporting, reconciliation, and liquidity management across BNP Paribas's global network. Connexis
+  Cash also exposes PSD2-compliant Open Banking APIs through the BNP Paribas CIB developer portal so that
+  third-party providers (TPPs) can retrieve account information and initiate payments on behalf of Connexis
+  Cash users, as well as a Strong Customer Authentication (SCA) flow.
 type: Index
 deliveryModel:
   model: unknown
@@ -38,80 +34,30 @@ accessModel:
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/connexis-cash.png
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-09-05'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 kind: company
 tags:
-  - Account Information
-  - BNP Paribas
-  - Cash Management
-  - Corporate Banking
-  - Digital Banking
-  - Liquidity Management
-  - Open Banking
-  - Payments
-  - PSD2
-  - SCA
-  - STET
+- Account Information
+- BNP Paribas
+- Cash Management
+- Corporate Banking
+- Digital Banking
+- Liquidity Management
+- Open Banking
+- Payments
+- PSD2
+- SCA
+- STET
 apis:
-- aid: connexis-cash:psd2-account-information
-  name: Connexis Cash PSD2 Account Information API (STET)
-  description: >-
-    A PSD2-compliant Account Information Service (AISP) API exposed by BNP Paribas Corporate and Institutional
-    Banking. Third-party providers consume this REST/JSON API, which follows the STET PSD2 standard, to
-    retrieve account information for Connexis Cash users. Production uses OAuth2 Authorization Code Grant
-    with QWAC certificates; the sandbox uses Client Credentials. Onboarded TPPs must supply QWAC certificates,
-    callback URLs, and EBA reference codes.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
-  baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  tags:
-  - AISP
-  - PSD2
-  - REST
-  - STET
-  properties:
-  - type: Documentation
-    url: >-
-      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
-  - type: DeveloperPortal
-    url: https://developers.cib.bnpparibas.com/
-  - type: OpenAPI
-    url: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
-  - type: APIReference
-    url: >-
-      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
-  - type: Production
-    url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
-  - type: Sandbox
-    url: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
-  - type: Fallback
-    url: https://connexis.bnpparibas.com/
-  contact:
-  - FN: BNP Paribas PSD2 API Support
-    email: dl.cib.api.psd2.support@bnpparibas.com
-  x-features:
-  - PSD2 STET Compliance
-  - OAuth2 Authorization Code Grant (production)
-  - Client Credentials (sandbox)
-  - QWAC Certificate Authentication
-  - Account Balances Retrieval
-  - Transaction Listing
-  - Full-AISP Consent Model
-  x-use-cases:
-  - Aggregate Connexis Cash balances into TPP dashboards
-  - Build accounting tools that pull bank data automatically
-  - Power treasury software with multi-bank account access
 - aid: connexis-cash:strong-authentication
   name: Connexis Cash Strong Customer Authentication (SCA)
-  description: >-
-    A documented Strong Customer Authentication flow that BNP Paribas provides for Connexis Cash to satisfy
-    PSD2 SCA requirements. TPPs integrate the SCA flow into their PSD2 journeys so that Connexis Cash
-    users authenticate with two factors before consenting to share account data or initiate payments.
+  description: A documented Strong Customer Authentication flow that BNP Paribas provides for Connexis
+    Cash to satisfy PSD2 SCA requirements. TPPs integrate the SCA flow into their PSD2 journeys so that
+    Connexis Cash users authenticate with two factors before consenting to share account data or initiate
+    payments.
   humanURL: https://developers.cib.bnpparibas.com/index.php/docs/sca
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -132,11 +78,10 @@ apis:
   - Satisfy PSD2 SCA in Open Banking integrations
 - aid: connexis-cash:digital-banking-platform
   name: Connexis Cash Digital Banking Platform
-  description: >-
-    The Connexis Cash digital banking application itself. While not a public REST API, it is the user-facing
-    platform that powers payment initiation, real-time tracking, reconciliation, account reporting, and
-    liquidity management for BNP Paribas corporate customers, with web and mobile apps and host-to-host
-    connectivity options.
+  description: The Connexis Cash digital banking application itself. While not a public REST API, it is
+    the user-facing platform that powers payment initiation, real-time tracking, reconciliation, account
+    reporting, and liquidity management for BNP Paribas corporate customers, with web and mobile apps
+    and host-to-host connectivity options.
   humanURL: https://cashmanagement.bnpparibas.com/solutions/digital-channels
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -162,8 +107,7 @@ apis:
 - aid: connexis-cash:connexis-cash-accounts-api
   name: Connexis Cash Accounts API
   description: The Accounts API from Connexis Cash — 2 operation(s) for accounts.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -176,8 +120,7 @@ apis:
 - aid: connexis-cash:connexis-cash-balances-api
   name: Connexis Cash Balances API
   description: The Balances API from Connexis Cash — 1 operation(s) for balances.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -188,8 +131,7 @@ apis:
 - aid: connexis-cash:connexis-cash-beneficiaries-api
   name: Connexis Cash Beneficiaries API
   description: The Beneficiaries API from Connexis Cash — 1 operation(s) for beneficiaries.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -200,8 +142,7 @@ apis:
 - aid: connexis-cash:connexis-cash-consents-api
   name: Connexis Cash Consents API
   description: The Consents API from Connexis Cash — 1 operation(s) for consents.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -212,8 +153,7 @@ apis:
 - aid: connexis-cash:connexis-cash-transactions-api
   name: Connexis Cash Transactions API
   description: The Transactions API from Connexis Cash — 1 operation(s) for transactions.
-  humanURL: >-
-    https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   tags:
@@ -223,79 +163,98 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/connexis-cash-transactions-api-openapi.yml
-common:
-  - type: AgenticAccess
-    url: agentic-access/connexis-cash-agentic-access.yml
-  - type: DomainSecurity
-    url: security/connexis-cash-domain-security.yml
-  - type: Authentication
-    url: authentication/connexis-cash-authentication.yml
-  - type: OAuthScopes
-    url: scopes/connexis-cash-scopes.yml
-  - type: Website
-    url: https://cashmanagement.bnpparibas.com/solutions/digital-channels
+- aid: connexis-cash:connexis-cash-aisp-api
+  name: Connexis Cash AISP API
+  description: The AISP API from Connexis Cash — 4 operation(s) for aisp.
+  humanURL: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  baseURL: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
+  tags:
+  - AISP
+  properties:
+  - type: OpenAPI
+    url: openapi/connexis-cash-aisp-api-openapi.yml
+  - type: Documentation
+    url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   - type: DeveloperPortal
     url: https://developers.cib.bnpparibas.com/
-  - type: Open Banking Tracker
-    url: https://www.openbankingtracker.com/provider/connexis-cash
-  - type: BNP Paribas CIB
-    url: https://cib.bnpparibas/
-  - type: Mobile App
-    url: https://apps.apple.com/us/app/connexis-cash-mobile/id1053068521
-  - type: Support
-    email: dl.cib.api.psd2.support@bnpparibas.com
-  - type: Documentation
-    url: >-
-      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
   - type: APIReference
-    url: >-
-      https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
-  - type: GettingStarted
-    url: https://developers.cib.bnpparibas.com/index.php/docs/get-started
-  - type: SignUp
-    url: https://developers.cib.bnpparibas.com/index.php/user/register
-  - type: Login
-    url: https://developers.cib.bnpparibas.com/index.php/user/login
-  - type: TermsOfService
-    url: https://developers.cib.bnpparibas.com/index.php/terms-of-use
-  - type: PrivacyPolicy
-    url: https://cib.bnpparibas.com/about/privacy-policy_a-38-60.html
-  - type: GitHubOrganization
-    url: https://github.com/bnpparibas
-  - type: OpenAPI
-    url: openapi/connexis-cash-account-information-psd2-stet-mock-openapi.yml
-  - type: Overlay
-    url: >-
-      overlays/connexis-cash-account-information-psd2-stet-mock-overlay.yaml
-  - type: Conventions
-    url: conventions/connexis-cash-conventions.yml
-  - type: ErrorCatalog
-    url: errors/connexis-cash-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/connexis-cash-lifecycle.yml
-  - type: Conformance
-    url: conformance/connexis-cash-conformance.yml
-  - type: Compliance
-    url: conformance/connexis-cash-conformance.yml
-  - type: DataModel
-    url: data-model/connexis-cash-data-model.yml
+    url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+  - type: Production
+    url: https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet
   - type: Sandbox
-    url: sandbox/connexis-cash-sandbox.yml
-  - type: Plans
-    url: plans/connexis-cash-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/connexis-cash-rate-limits.yml
-  - type: LLMsTxt
-    url: llms/connexis-cash-llms.txt
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: X-MCPServerCandidate
-    url: mcp/connexis-cash-mcp.yml
+    url: https://api.sandbox.cib.bnpparibas.com/gb-account-information-psd2-stet-mock
+  - type: Fallback
+    url: https://connexis.bnpparibas.com/
+common:
+- type: AgenticAccess
+  url: agentic-access/connexis-cash-agentic-access.yml
+- type: DomainSecurity
+  url: security/connexis-cash-domain-security.yml
+- type: Authentication
+  url: authentication/connexis-cash-authentication.yml
+- type: OAuthScopes
+  url: scopes/connexis-cash-scopes.yml
+- type: Website
+  url: https://cashmanagement.bnpparibas.com/solutions/digital-channels
+- type: DeveloperPortal
+  url: https://developers.cib.bnpparibas.com/
+- type: Open Banking Tracker
+  url: https://www.openbankingtracker.com/provider/connexis-cash
+- type: BNP Paribas CIB
+  url: https://cib.bnpparibas/
+- type: Mobile App
+  url: https://apps.apple.com/us/app/connexis-cash-mobile/id1053068521
+- type: Support
+  email: dl.cib.api.psd2.support@bnpparibas.com
+- type: Documentation
+  url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+- type: APIReference
+  url: https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock
+- type: GettingStarted
+  url: https://developers.cib.bnpparibas.com/index.php/docs/get-started
+- type: SignUp
+  url: https://developers.cib.bnpparibas.com/index.php/user/register
+- type: Login
+  url: https://developers.cib.bnpparibas.com/index.php/user/login
+- type: TermsOfService
+  url: https://developers.cib.bnpparibas.com/index.php/terms-of-use
+- type: PrivacyPolicy
+  url: https://cib.bnpparibas.com/about/privacy-policy_a-38-60.html
+- type: GitHubOrganization
+  url: https://github.com/bnpparibas
+- type: OpenAPI
+  url: openapi/_original/connexis-cash-account-information-psd2-stet-mock-openapi.yml
+- type: Overlay
+  url: overlays/connexis-cash-account-information-psd2-stet-mock-overlay.yaml
+- type: Conventions
+  url: conventions/connexis-cash-conventions.yml
+- type: ErrorCatalog
+  url: errors/connexis-cash-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/connexis-cash-lifecycle.yml
+- type: Conformance
+  url: conformance/connexis-cash-conformance.yml
+- type: Compliance
+  url: conformance/connexis-cash-conformance.yml
+- type: DataModel
+  url: data-model/connexis-cash-data-model.yml
+- type: Sandbox
+  url: sandbox/connexis-cash-sandbox.yml
+- type: Plans
+  url: plans/connexis-cash-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/connexis-cash-rate-limits.yml
+- type: LLMsTxt
+  url: llms/connexis-cash-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: X-MCPServerCandidate
+  url: mcp/connexis-cash-mcp.yml
 x-enrichment:
   date: '2026-09-05'
   status: enriched
   artifacts_added: 18
   pass: local-v3
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
