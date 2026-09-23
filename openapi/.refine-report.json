@@ -1,13 +1,11 @@
 {
   "provider": "connexis-cash",
   "sources": [
-    "connexis-cash-accounts-api-openapi.yml",
-    "connexis-cash-balances-api-openapi.yml",
-    "connexis-cash-beneficiaries-api-openapi.yml",
-    "connexis-cash-consents-api-openapi.yml",
-    "connexis-cash-transactions-api-openapi.yml"
+    "_original/connexis-cash-account-information-psd2-stet-mock-openapi.yml",
+    "_original/connexis-cash-openapi.yml"
   ],
   "outputs": [
+    "connexis-cash-aisp-api-openapi.yml",
     "connexis-cash-accounts-api-openapi.yml",
     "connexis-cash-balances-api-openapi.yml",
     "connexis-cash-beneficiaries-api-openapi.yml",
@@ -18,12 +16,20 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "connexis-cash-accounts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "connexis-cash-balances-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "connexis-cash-beneficiaries-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "connexis-cash-consents-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "connexis-cash-transactions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "connexis-cash-account-information-psd2-stet-mock-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "connexis-cash-account-information-psd2-stet-mock-openapi.yml: declared missing tag: AISP",
+    "connexis-cash-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "_original/connexis-cash-account-information-psd2-stet-mock-openapi_2.yml: archived document superseded by a larger archived document",
+    "connexis-cash-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connexis-cash-aisp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connexis-cash-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connexis-cash-beneficiaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connexis-cash-consents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connexis-cash-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
