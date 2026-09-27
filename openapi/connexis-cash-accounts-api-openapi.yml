@@ -59,16 +59,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AccountList:
+    Account:
       type: object
       properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        _links:
-          type: object
-          additionalProperties: true
+        resourceId:
+          type: string
+        accountId:
+          $ref: '#/components/schemas/AccountReference'
+        name:
+          type: string
+        product:
+          type: string
+        cashAccountType:
+          type: string
+        currency:
+          type: string
+        psuStatus:
+          type: string
     AccountReference:
       type: object
       properties:
@@ -87,23 +94,16 @@ components:
               type: string
             issuer:
               type: string
-    Account:
+    AccountList:
       type: object
       properties:
-        resourceId:
-          type: string
-        accountId:
-          $ref: '#/components/schemas/AccountReference'
-        name:
-          type: string
-        product:
-          type: string
-        cashAccountType:
-          type: string
-        currency:
-          type: string
-        psuStatus:
-          type: string
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        _links:
+          type: object
+          additionalProperties: true
   securitySchemes:
     oauth2:
       type: oauth2

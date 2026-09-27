@@ -77,6 +77,7 @@ apis:
   - Authenticate users for AISP/PISP consent
   - Satisfy PSD2 SCA in Open Banking integrations
 - aid: connexis-cash:digital-banking-platform
+  x-published: false
   name: Connexis Cash Digital Banking Platform
   description: The Connexis Cash digital banking application itself. While not a public REST API, it is
     the user-facing platform that powers payment initiation, real-time tracking, reconciliation, account

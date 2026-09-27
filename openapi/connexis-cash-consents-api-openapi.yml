@@ -45,16 +45,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConsentResponse:
-      type: object
-      properties:
-        _links:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              href:
-                type: string
     AccountReference:
       type: object
       properties:
@@ -88,6 +78,16 @@ components:
           type: boolean
         psuIdentity:
           type: boolean
+    ConsentResponse:
+      type: object
+      properties:
+        _links:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              href:
+                type: string
   securitySchemes:
     oauth2:
       type: oauth2

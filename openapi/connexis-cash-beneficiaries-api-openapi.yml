@@ -39,23 +39,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Beneficiary:
+    BeneficiaryList:
       type: object
       properties:
-        creditorAccount:
-          $ref: '#/components/schemas/AccountReference'
-        creditorAgent:
-          type: object
-          properties:
-            bicFi:
-              type: string
-        creditor:
-          type: object
-          properties:
-            name:
-              type: string
-        isTrusted:
-          type: boolean
+        trustedBeneficiaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
     AccountReference:
       type: object
       properties:
@@ -74,13 +64,23 @@ components:
               type: string
             issuer:
               type: string
-    BeneficiaryList:
+    Beneficiary:
       type: object
       properties:
-        trustedBeneficiaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Beneficiary'
+        creditorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        creditorAgent:
+          type: object
+          properties:
+            bicFi:
+              type: string
+        creditor:
+          type: object
+          properties:
+            name:
+              type: string
+        isTrusted:
+          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

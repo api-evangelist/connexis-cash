@@ -595,6 +595,13 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
+    gatewayErrors:
+      type: string
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
     TransactionStatus:
       description: 'Type of Transaction
 
@@ -610,6 +617,40 @@ components:
       - BOOK
       - PDNG
       - OTHR
+    AccountLinks:
+      description: 'links that can be used for further navigation when browsing Account Information at one account level
+
+        - balances: link to the balances of a given account
+
+        - transactions: link to the transactions of a given account
+
+        '
+      type: object
+      readOnly: true
+      properties:
+        balances:
+          $ref: '#/components/schemas/GenericLink'
+        transactions:
+          $ref: '#/components/schemas/GenericLink'
+      example:
+        balances:
+          href: v1/accounts/Alias1/balances-report
+        transactions:
+          href: v1/accounts/Alias1/transactions
+    HalBeneficiaries:
+      description: HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries
+      type: object
+      required:
+      - beneficiaries
+      - _links
+      properties:
+        beneficiaries:
+          type: array
+          description: List of trusted beneficiaries
+          items:
+            $ref: '#/components/schemas/Beneficiary'
+        _links:
+          $ref: '#/components/schemas/BeneficiariesLinks'
     AccountResource:
       description: 'PSU account that is made available to the TPP
 
@@ -715,74 +756,6 @@ components:
             href: v1/accounts/1306171745/balances
           transactions:
             href: v1/accounts/1306171745/transactions
-    GenericIdentification:
-      description: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.
-
-        API: The ASPSP will document which account reference type it will support.
-
-        '
-      type: object
-      properties:
-        identification:
-          description: 'API: Identifier
-
-            '
-          type: string
-          maxLength: 70
-        schemeName:
-          description: 'Name of the identification scheme.
-
-            Possible values for the scheme name, partially based on ISO20022 external code list, are the following:
-
-            - BANK (BankPartyIdentification): Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.
-
-            - COID (CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number)
-
-            - SREN (SIREN): The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.
-
-            - SRET (SIRET): The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity.
-
-            - NIDN (NationalIdentityNumber): Number assigned by an authority to identify the national identity number of a person.
-
-            Other values are also permitted, for instance:
-
-            - OAUT (OAUTH2): OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU
-
-            - CPAN (CardPan): Card PAN
-
-            '
-          type: string
-          maxLength: 70
-        issuer:
-          description: 'ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties
-
-            '
-          type: string
-          maxLength: 35
-      example:
-        identification: 12FR5
-        schemeName: COID
-        issuer: FR
-    AccountLinks:
-      description: 'links that can be used for further navigation when browsing Account Information at one account level
-
-        - balances: link to the balances of a given account
-
-        - transactions: link to the transactions of a given account
-
-        '
-      type: object
-      readOnly: true
-      properties:
-        balances:
-          $ref: '#/components/schemas/GenericLink'
-        transactions:
-          $ref: '#/components/schemas/GenericLink'
-      example:
-        balances:
-          href: v1/accounts/Alias1/balances-report
-        transactions:
-          href: v1/accounts/Alias1/transactions
     BalanceStatus:
       description: 'Type of balance
 
@@ -801,133 +774,48 @@ components:
       - XPCD
       - VALU
       - OTHR
-    FinancialInstitutionIdentification:
-      description: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an internationally recognised or proprietary identification scheme.
+    PostalAddress:
+      description: 'ISO20022 : Information that locates and identifies a specific address, as defined by postal services.
 
         '
       type: object
       required:
-      - bicFi
+      - country
+      - addressLine
       properties:
-        bicFi:
-          description: 'ISO20022: Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 "Banking - Banking telecommunication messages - Business identification code (BIC)".
+        country:
+          description: 'ISO20022: Country in which a person resides (the place of a person''s home). In the case of a company, it is the country from which the affairs of that company are directed.
 
             '
           type: string
-          pattern: ^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}$
-        clearingSystemMemberId:
-          $ref: '#/components/schemas/ClearingSystemMemberIdentification'
-        name:
-          type: string
-          description: Name of the financial institution
-          maxLength: 140
-        postalAddress:
-          $ref: '#/components/schemas/PostalAddress'
+          pattern: ^([A-Z]{2,2})$
+        addressLine:
+          description: Unstructured address. The two lines must embed zip code and town name
+          type: array
+          items:
+            description: Address line
+            type: string
+            maxItems: 2
+            maxLength: 70
       example:
-        bicFi: BNKAFRPPXXX
-    PartyIdentification:
-      description: 'API : Description of a Party which can be either a person or an organization.
-
-        '
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          description: 'ISO20022: Name by which a party is known and which is usually used to identify that party.
-
-            '
-          type: string
-          maxLength: 140
-        postalAddress:
-          $ref: '#/components/schemas/PostalAddress'
-        organisationId:
-          description: Unique and unambiguous way to identify an organisation.
-          $ref: '#/components/schemas/GenericIdentification'
-        privateId:
-          description: Unique and unambiguous identification of a person.
-          $ref: '#/components/schemas/GenericIdentification'
-      example:
-        name: MyPreferedPisp
-        postalAddress:
-          country: FR
-          addressLine:
-          - 18 rue de la DSP2
-          - 75008 PARIS
-    ClearingSystemMemberIdentification:
-      description: 'ISO20022: Information used to identify a member within a clearing system.
-
-        API: to be used for some specific international credit transfers in order to identify the beneficiary bank
-
-        '
-      type: object
-      properties:
-        clearingSystemId:
-          description: 'ISO20022: Specification of a pre-agreed offering between clearing agents or the channel through which the payment instruction is processed.
-
-            '
-          type: string
-          maxLength: 35
-        memberId:
-          description: 'ISO20022: Identification of a member of a clearing system.
-
-            '
-          type: string
-          maxLength: 35
-      example: "{\n  \"clearingSystemId\" : \"NZNCC\",\n  \"memberId\" : \"020368\"\n}\n"
-    PsuContextLinks:
-      description: 'Links that can be used for further navigation when browsing Account Information at top level
-
-        - self: link to the list of all available accounts
-
-        '
-      type: object
-      readOnly: true
-      required:
-      - self
-      properties:
-        self:
-          $ref: '#/components/schemas/GenericLink'
-        beneficiaries:
-          $ref: '#/components/schemas/GenericLink'
-        first:
-          $ref: '#/components/schemas/GenericLink'
-        last:
-          $ref: '#/components/schemas/GenericLink'
-        next:
-          $ref: '#/components/schemas/GenericLink'
-        prev:
-          $ref: '#/components/schemas/GenericLink'
-      example:
-        self:
-          href: v1/accounts?page=2
-        first:
-          href: v1/accounts
-        last:
-          href: v1/accounts?page=last
-          templated: true
-        next:
-          href: v1/accounts?page=3
-          templated: true
-        prev:
-          href: v1/accounts
-          templated: true
-    TransactionsLinks:
+        country: FR
+        addressLine:
+        - 18 rue de la DSP2
+        - 75008 PARIS
+    BeneficiariesLinks:
       description: 'links that can be used for further navigation when browsing Account Information at one account level
 
-        - self: link to the transactions of a given account
+        - self: link to the beneficiaries
 
         - parent-list: link to the list of all available accounts
 
-        - balances: link to the balances of a given account
+        - first: link to the first page of the beneficiaries result
 
-        - first: link to the first page of the transactions result
+        - last: link to the last page of the beneficiaries result
 
-        - last: link to the last page of the transactions result
+        - next: link to the next page of the beneficiaries result
 
-        - next: link to the next page of the transactions result
-
-        - prev: link to the previous page of the transactions result
+        - prev: link to the previous page of the beneficiaries result
 
         '
       type: object
@@ -939,8 +827,6 @@ components:
           $ref: '#/components/schemas/GenericLink'
         parent-list:
           $ref: '#/components/schemas/GenericLink'
-        balances:
-          $ref: '#/components/schemas/GenericLink'
         first:
           $ref: '#/components/schemas/GenericLink'
         last:
@@ -951,94 +837,60 @@ components:
           $ref: '#/components/schemas/GenericLink'
       example:
         self:
-          href: v1/accounts/19737007345/transactions
+          href: v1/trusted-beneficiaries
         parent-list:
           href: v1/accounts
-        balances:
-          href: v1/accounts/19737007345/balances
         last:
-          href: v1/accounts/19737007345/transactions?page=last
+          href: v1/trusted-beneficiaries?page=last
         next:
-          href: v1/accounts/19737007345/transactions?page=3
-    BalanceResource:
-      description: Structure of an account balance
+          href: v1/trusted-beneficiaries?page=1
+    GenericLink:
+      description: hypertext reference
       type: object
       required:
-      - name
-      - balanceAmount
-      - balanceType
+      - href
       properties:
-        name:
-          description: Label of the balance
+        href:
+          description: URI to be used
           type: string
-          maxLength: 70
-        balanceAmount:
-          $ref: '#/components/schemas/AmountType'
-        balanceType:
-          $ref: '#/components/schemas/BalanceStatus'
-        lastChangeDateTime:
-          description: Timestamp of the last change of the balance amount
-          type: string
-          format: date-time
-        referenceDate:
-          description: Reference date for the balance
-          type: string
-          format: date
-        lastCommittedTransaction:
-          description: 'Identification of the last committed transaction. This is actually useful for instant balance.
-
-            '
-          type: string
-          maxLength: 40
+          maxLength: 140
+        templated:
+          description: specifies "true" if href is a URI template, i.e. with parameters. Otherwise, this property is absent or set to false
+          type: boolean
       example:
-        name: Ledger Booked 2018-06-20
-        balanceAmount:
-          currency: EUR
-          amount: '12002'
-        balanceType: CLBD
-        lastCommittedTransaction: null
-        referenceDate: '2018-06-20'
-    HalBeneficiaries:
-      description: HYPERMEDIA structure used for returning the list of the whitelisted beneficiaries
-      type: object
-      required:
-      - beneficiaries
-      - _links
-      properties:
-        beneficiaries:
-          type: array
-          description: List of trusted beneficiaries
-          items:
-            $ref: '#/components/schemas/Beneficiary'
-        _links:
-          $ref: '#/components/schemas/BeneficiariesLinks'
-    AmountType:
-      description: 'ISO20022: structure aiming to carry either an instructed amount or equivalent amount. Both structures embed the amount and the currency to be used.
-
-
-        API: only instructed amount can be used
+        href: v1/accounts/Alias1/balances
+    ResourceId:
+      description: 'API: Identifier assigned by the ASPSP for further use of the created resource through API calls
 
         '
+      type: string
+      pattern: ^([a-zA-Z0-9 \/\-?:\()\.,']{1,35})$
+      readOnly: true
+    HalAccounts:
+      description: HYPERMEDIA structure used for returning the list of the available accounts to the AISP
       type: object
       required:
-      - currency
-      - amount
+      - accounts
+      - _links
       properties:
-        currency:
-          description: 'Specifies the currency of the amount. A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
+        connectedPsu:
+          description: 'Last name and first name that has granted access to the AISP on the accounts data
+
+            This information can be retrieved based on the PSU''s authentication that occurred during the OAUTH2 access token initialisation.
 
             '
           type: string
-          pattern: ^[A-Z]{3,3}$
-        amount:
-          description: 'ISO20022: Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.
+          maxLength: 70
+          example: User 1
+        accounts:
+          description: 'List of PSU account that are made available to the TPP
 
             '
-          type: string
-          pattern: ^\-{0,1}[0-9]{1,13}(\.[0-9]{0,5}){0,1}$
-      example:
-        currency: EUR
-        amount: '12.25'
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountResource'
+        _links:
+          $ref: '#/components/schemas/PsuContextLinks'
     Beneficiary:
       description: Specification of a beneficiary
       type: object
@@ -1072,6 +924,34 @@ components:
         creditorAccount:
           $ref: '#/components/schemas/AccountIdentification'
       example: null
+    BalancesLinks:
+      description: 'links that can be used for further navigation when browsing Account Information at one account level
+
+        - self: link to the balances of a given account
+
+        - parent-list: link to the list of all available accounts
+
+        - transactions: link to the transactions of a given account
+
+        '
+      type: object
+      readOnly: true
+      required:
+      - self
+      properties:
+        self:
+          $ref: '#/components/schemas/GenericLink'
+        parent-list:
+          $ref: '#/components/schemas/GenericLink'
+        transactions:
+          $ref: '#/components/schemas/GenericLink'
+      example:
+        self:
+          href: v1/accounts/1306171745/balances
+        parent-list:
+          href: v1/accounts
+        transactions:
+          href: v1/accounts/1306171745/transactions
     ErrorModel:
       description: Generic error report structure
       type: object
@@ -1120,73 +1000,54 @@ components:
           minItems: 1
         _links:
           $ref: '#/components/schemas/BalancesLinks'
-    HalAccounts:
-      description: HYPERMEDIA structure used for returning the list of the available accounts to the AISP
-      type: object
-      required:
-      - accounts
-      - _links
-      properties:
-        connectedPsu:
-          description: 'Last name and first name that has granted access to the AISP on the accounts data
+    GenericIdentification:
+      description: 'ISO20022: Unique identification of an account, a person or an organisation, as assigned by an issuer.
 
-            This information can be retrieved based on the PSU''s authentication that occurred during the OAUTH2 access token initialisation.
+        API: The ASPSP will document which account reference type it will support.
+
+        '
+      type: object
+      properties:
+        identification:
+          description: 'API: Identifier
 
             '
           type: string
           maxLength: 70
-          example: User 1
-        accounts:
-          description: 'List of PSU account that are made available to the TPP
+        schemeName:
+          description: 'Name of the identification scheme.
+
+            Possible values for the scheme name, partially based on ISO20022 external code list, are the following:
+
+            - BANK (BankPartyIdentification): Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.
+
+            - COID (CountryIdentificationCode) : Country authority given organisation identification (e.g., corporate registration number)
+
+            - SREN (SIREN): The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.
+
+            - SRET (SIRET): The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity.
+
+            - NIDN (NationalIdentityNumber): Number assigned by an authority to identify the national identity number of a person.
+
+            Other values are also permitted, for instance:
+
+            - OAUT (OAUTH2): OAUTH2 access token that is owned by the PISP being also an AISP and that can be used in order to identify the PSU
+
+            - CPAN (CardPan): Card PAN
 
             '
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountResource'
-        _links:
-          $ref: '#/components/schemas/PsuContextLinks'
-    BeneficiariesLinks:
-      description: 'links that can be used for further navigation when browsing Account Information at one account level
+          type: string
+          maxLength: 70
+        issuer:
+          description: 'ISO20022: Entity that assigns the identification. this could a country code or any organisation name or identifier that can be recognized by both parties
 
-        - self: link to the beneficiaries
-
-        - parent-list: link to the list of all available accounts
-
-        - first: link to the first page of the beneficiaries result
-
-        - last: link to the last page of the beneficiaries result
-
-        - next: link to the next page of the beneficiaries result
-
-        - prev: link to the previous page of the beneficiaries result
-
-        '
-      type: object
-      readOnly: true
-      required:
-      - self
-      properties:
-        self:
-          $ref: '#/components/schemas/GenericLink'
-        parent-list:
-          $ref: '#/components/schemas/GenericLink'
-        first:
-          $ref: '#/components/schemas/GenericLink'
-        last:
-          $ref: '#/components/schemas/GenericLink'
-        next:
-          $ref: '#/components/schemas/GenericLink'
-        prev:
-          $ref: '#/components/schemas/GenericLink'
+            '
+          type: string
+          maxLength: 35
       example:
-        self:
-          href: v1/trusted-beneficiaries
-        parent-list:
-          href: v1/accounts
-        last:
-          href: v1/trusted-beneficiaries?page=last
-        next:
-          href: v1/trusted-beneficiaries?page=1
+        identification: 12FR5
+        schemeName: COID
+        issuer: FR
     AccountIdentification:
       description: Unique and unambiguous identification for the account between the account owner and the account servicer.
       type: object
@@ -1206,6 +1067,167 @@ components:
           $ref: '#/components/schemas/GenericIdentification'
       example:
         Iban: YY64COJH41059545330222956960771321
+    UnstructuredRemittanceInformation:
+      description: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts'' receivable system.
+
+        API: Only one occurrence is allowed
+
+        '
+      type: array
+      items:
+        type: string
+        description: Relevant information to the transaction
+        title: remittanceLine
+        maxLength: 140
+    ClearingSystemMemberIdentification:
+      description: 'ISO20022: Information used to identify a member within a clearing system.
+
+        API: to be used for some specific international credit transfers in order to identify the beneficiary bank
+
+        '
+      type: object
+      properties:
+        clearingSystemId:
+          description: 'ISO20022: Specification of a pre-agreed offering between clearing agents or the channel through which the payment instruction is processed.
+
+            '
+          type: string
+          maxLength: 35
+        memberId:
+          description: 'ISO20022: Identification of a member of a clearing system.
+
+            '
+          type: string
+          maxLength: 35
+      example: "{\n  \"clearingSystemId\" : \"NZNCC\",\n  \"memberId\" : \"020368\"\n}\n"
+    PartyIdentification:
+      description: 'API : Description of a Party which can be either a person or an organization.
+
+        '
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: 'ISO20022: Name by which a party is known and which is usually used to identify that party.
+
+            '
+          type: string
+          maxLength: 140
+        postalAddress:
+          $ref: '#/components/schemas/PostalAddress'
+        organisationId:
+          description: Unique and unambiguous way to identify an organisation.
+          $ref: '#/components/schemas/GenericIdentification'
+        privateId:
+          description: Unique and unambiguous identification of a person.
+          $ref: '#/components/schemas/GenericIdentification'
+      example:
+        name: MyPreferedPisp
+        postalAddress:
+          country: FR
+          addressLine:
+          - 18 rue de la DSP2
+          - 75008 PARIS
+    FinancialInstitutionIdentification:
+      description: 'ISO20022: Unique and unambiguous identification of a financial institution, as assigned under an internationally recognised or proprietary identification scheme.
+
+        '
+      type: object
+      required:
+      - bicFi
+      properties:
+        bicFi:
+          description: 'ISO20022: Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 "Banking - Banking telecommunication messages - Business identification code (BIC)".
+
+            '
+          type: string
+          pattern: ^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}$
+        clearingSystemMemberId:
+          $ref: '#/components/schemas/ClearingSystemMemberIdentification'
+        name:
+          type: string
+          description: Name of the financial institution
+          maxLength: 140
+        postalAddress:
+          $ref: '#/components/schemas/PostalAddress'
+      example:
+        bicFi: BNKAFRPPXXX
+    BalanceResource:
+      description: Structure of an account balance
+      type: object
+      required:
+      - name
+      - balanceAmount
+      - balanceType
+      properties:
+        name:
+          description: Label of the balance
+          type: string
+          maxLength: 70
+        balanceAmount:
+          $ref: '#/components/schemas/AmountType'
+        balanceType:
+          $ref: '#/components/schemas/BalanceStatus'
+        lastChangeDateTime:
+          description: Timestamp of the last change of the balance amount
+          type: string
+          format: date-time
+        referenceDate:
+          description: Reference date for the balance
+          type: string
+          format: date
+        lastCommittedTransaction:
+          description: 'Identification of the last committed transaction. This is actually useful for instant balance.
+
+            '
+          type: string
+          maxLength: 40
+      example:
+        name: Ledger Booked 2018-06-20
+        balanceAmount:
+          currency: EUR
+          amount: '12002'
+        balanceType: CLBD
+        lastCommittedTransaction: null
+        referenceDate: '2018-06-20'
+    PsuContextLinks:
+      description: 'Links that can be used for further navigation when browsing Account Information at top level
+
+        - self: link to the list of all available accounts
+
+        '
+      type: object
+      readOnly: true
+      required:
+      - self
+      properties:
+        self:
+          $ref: '#/components/schemas/GenericLink'
+        beneficiaries:
+          $ref: '#/components/schemas/GenericLink'
+        first:
+          $ref: '#/components/schemas/GenericLink'
+        last:
+          $ref: '#/components/schemas/GenericLink'
+        next:
+          $ref: '#/components/schemas/GenericLink'
+        prev:
+          $ref: '#/components/schemas/GenericLink'
+      example:
+        self:
+          href: v1/accounts?page=2
+        first:
+          href: v1/accounts
+        last:
+          href: v1/accounts?page=last
+          templated: true
+        next:
+          href: v1/accounts?page=3
+          templated: true
+        prev:
+          href: v1/accounts
+          templated: true
     Transaction:
       description: structure of a transaction
       type: object
@@ -1274,6 +1296,81 @@ components:
         valueDate: '2018-11-22'
         transactionDate: '2018-11-22'
         remittanceInformation: /BENM/ANGULAR
+    AmountType:
+      description: 'ISO20022: structure aiming to carry either an instructed amount or equivalent amount. Both structures embed the amount and the currency to be used.
+
+
+        API: only instructed amount can be used
+
+        '
+      type: object
+      required:
+      - currency
+      - amount
+      properties:
+        currency:
+          description: 'Specifies the currency of the amount. A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 "Codes for the representation of currencies and funds".
+
+            '
+          type: string
+          pattern: ^[A-Z]{3,3}$
+        amount:
+          description: 'ISO20022: Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as ordered by the initiating party.
+
+            '
+          type: string
+          pattern: ^\-{0,1}[0-9]{1,13}(\.[0-9]{0,5}){0,1}$
+      example:
+        currency: EUR
+        amount: '12.25'
+    TransactionsLinks:
+      description: 'links that can be used for further navigation when browsing Account Information at one account level
+
+        - self: link to the transactions of a given account
+
+        - parent-list: link to the list of all available accounts
+
+        - balances: link to the balances of a given account
+
+        - first: link to the first page of the transactions result
+
+        - last: link to the last page of the transactions result
+
+        - next: link to the next page of the transactions result
+
+        - prev: link to the previous page of the transactions result
+
+        '
+      type: object
+      readOnly: true
+      required:
+      - self
+      properties:
+        self:
+          $ref: '#/components/schemas/GenericLink'
+        parent-list:
+          $ref: '#/components/schemas/GenericLink'
+        balances:
+          $ref: '#/components/schemas/GenericLink'
+        first:
+          $ref: '#/components/schemas/GenericLink'
+        last:
+          $ref: '#/components/schemas/GenericLink'
+        next:
+          $ref: '#/components/schemas/GenericLink'
+        prev:
+          $ref: '#/components/schemas/GenericLink'
+      example:
+        self:
+          href: v1/accounts/19737007345/transactions
+        parent-list:
+          href: v1/accounts
+        balances:
+          href: v1/accounts/19737007345/balances
+        last:
+          href: v1/accounts/19737007345/transactions?page=last
+        next:
+          href: v1/accounts/19737007345/transactions?page=3
     HalTransactions:
       description: HYPERMEDIA structure used for returning the list of the transactions for a given account to the AISP
       type: object
@@ -1288,126 +1385,16 @@ components:
             $ref: '#/components/schemas/Transaction'
         _links:
           $ref: '#/components/schemas/TransactionsLinks'
-    GenericLink:
-      description: hypertext reference
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          description: URI to be used
-          type: string
-          maxLength: 140
-        templated:
-          description: specifies "true" if href is a URI template, i.e. with parameters. Otherwise, this property is absent or set to false
-          type: boolean
-      example:
-        href: v1/accounts/Alias1/balances
-    BalancesLinks:
-      description: 'links that can be used for further navigation when browsing Account Information at one account level
-
-        - self: link to the balances of a given account
-
-        - parent-list: link to the list of all available accounts
-
-        - transactions: link to the transactions of a given account
-
-        '
-      type: object
-      readOnly: true
-      required:
-      - self
-      properties:
-        self:
-          $ref: '#/components/schemas/GenericLink'
-        parent-list:
-          $ref: '#/components/schemas/GenericLink'
-        transactions:
-          $ref: '#/components/schemas/GenericLink'
-      example:
-        self:
-          href: v1/accounts/1306171745/balances
-        parent-list:
-          href: v1/accounts
-        transactions:
-          href: v1/accounts/1306171745/transactions
-    gatewayErrors:
-      type: string
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-    UnstructuredRemittanceInformation:
-      description: 'ISO20022: Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts'' receivable system.
-
-        API: Only one occurrence is allowed
-
-        '
-      type: array
-      items:
-        type: string
-        description: Relevant information to the transaction
-        title: remittanceLine
-        maxLength: 140
-    PostalAddress:
-      description: 'ISO20022 : Information that locates and identifies a specific address, as defined by postal services.
-
-        '
-      type: object
-      required:
-      - country
-      - addressLine
-      properties:
-        country:
-          description: 'ISO20022: Country in which a person resides (the place of a person''s home). In the case of a company, it is the country from which the affairs of that company are directed.
-
-            '
-          type: string
-          pattern: ^([A-Z]{2,2})$
-        addressLine:
-          description: Unstructured address. The two lines must embed zip code and town name
-          type: array
-          items:
-            description: Address line
-            type: string
-            maxItems: 2
-            maxLength: 70
-      example:
-        country: FR
-        addressLine:
-        - 18 rue de la DSP2
-        - 75008 PARIS
-    ResourceId:
-      description: 'API: Identifier assigned by the ASPSP for further use of the created resource through API calls
-
-        '
-      type: string
-      pattern: ^([a-zA-Z0-9 \/\-?:\()\.,']{1,35})$
-      readOnly: true
   responses:
-    '204':
-      description: No content.
+    '404':
+      description: Not found, no resource available.
       headers:
-        X-Request-ID:
-          description: 'Correlation header to be set in a request and retrieved in the relevant response
-
-            '
-          schema:
-            type: string
-    '500':
-      description: Internal server error.
-      headers:
-        X-Request-ID:
-          description: 'Correlation header to be set in a request and retrieved in the relevant response
-
-            '
-          schema:
-            type: string
+        x-correlation-id:
+          $ref: '#/components/headers/correlationIdHeader'
       content:
-        '*/*':
+        application/json:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            $ref: '#/components/schemas/gatewayErrors'
     '403':
       description: Forbidden, authentication successful but access to resource is not allowed.
       headers:
@@ -1421,8 +1408,8 @@ components:
         '*/*':
           schema:
             $ref: '#/components/schemas/ErrorModel'
-    '400':
-      description: Invalid status value
+    '406':
+      description: Not Acceptable.
       headers:
         X-Request-ID:
           description: 'Correlation header to be set in a request and retrieved in the relevant response
@@ -1478,6 +1465,41 @@ components:
         '*/*':
           schema:
             $ref: '#/components/schemas/ErrorModel'
+    '400':
+      description: Invalid status value
+      headers:
+        X-Request-ID:
+          description: 'Correlation header to be set in a request and retrieved in the relevant response
+
+            '
+          schema:
+            type: string
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    '500':
+      description: Internal server error.
+      headers:
+        X-Request-ID:
+          description: 'Correlation header to be set in a request and retrieved in the relevant response
+
+            '
+          schema:
+            type: string
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    '204':
+      description: No content.
+      headers:
+        X-Request-ID:
+          description: 'Correlation header to be set in a request and retrieved in the relevant response
+
+            '
+          schema:
+            type: string
     '503':
       description: Service unavailable.
       headers:
@@ -1491,41 +1513,19 @@ components:
         '*/*':
           schema:
             $ref: '#/components/schemas/ErrorModel'
-    '406':
-      description: Not Acceptable.
-      headers:
-        X-Request-ID:
-          description: 'Correlation header to be set in a request and retrieved in the relevant response
-
-            '
-          schema:
-            type: string
-      content:
-        '*/*':
-          schema:
-            $ref: '#/components/schemas/ErrorModel'
-    '404':
-      description: Not found, no resource available.
-      headers:
-        x-correlation-id:
-          $ref: '#/components/headers/correlationIdHeader'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/gatewayErrors'
   parameters:
-    PsuAcceptCharsetHeader:
-      name: PSU-Accept-Charset
+    PsuIpPortHeader:
+      name: PSU-IP-Port
       in: header
-      description: '"Accept-Charset" header field sent by the PSU terminal when connecting to the TPP
-
-        '
+      description: IP port used by the PSU's terminal when connecting to the TPP
       schema:
         type: string
-    PsuDateHeader:
-      name: PSU-Date
+    PsuAcceptHeader:
+      name: PSU-Accept
       in: header
-      description: Timestamp of the most relevant PSU’s terminal request to the TTP
+      description: '"Accept" header field sent by the PSU terminal when connecting to the TPP
+
+        '
       schema:
         type: string
     PsuHttpMethodHeader:
@@ -1534,42 +1534,6 @@ components:
       description: Http method for the most relevant PSU’s terminal request to the TTP
       schema:
         type: string
-    PsuDeviceId:
-      name: PSU-Device-ID
-      in: header
-      description: 'UUID (Universally Unique Identifier) for a device, which is used by the PSU, if available.
-
-        UUID identifies either a device or a device dependant application installation.
-
-        In case of installation identification this ID need to be unaltered until removal from device.
-
-        '
-      schema:
-        type: string
-    AccountResourceIdentification:
-      name: accountResourceId
-      in: path
-      description: Identification of account resource to fetch
-      required: true
-      schema:
-        type: string
-        pattern: ^([a-zA-Z0-9 \/\-?:\()\.,']{1,35})$
-    PsuIpAddressHeader:
-      name: PSU-IP-Address
-      in: header
-      description: IP address used by the PSU's terminal when connecting to the TPP
-      schema:
-        type: string
-    pageNumber:
-      name: pageNumber
-      in: query
-      description: 'Specifies a page number in case of a pagination
-
-        '
-      required: false
-      schema:
-        type: integer
-        format: int32
     Correlation:
       name: X-Request-ID
       in: header
@@ -1580,51 +1544,16 @@ components:
       schema:
         type: string
         maxLength: 70
-    PsuUserAgentHeader:
-      name: PSU-User-Agent
-      in: header
-      description: '"User-Agent" header field sent by the PSU terminal when connecting to the TPP
-
-        '
-      schema:
-        type: string
-    ToImputationDate:
-      name: entryDateTo
+    pageSize:
+      name: pageSize
       in: query
-      description: 'Exclusive maximal imputation date of the transactions.
-
-        Transactions having an imputation date equal to this parameter are not included within the result.
+      description: 'Specifies the number of transactions to be displayed in the page in case of pagination
 
         '
       required: false
       schema:
-        type: string
-        format: date-time
-    SignatureHeader:
-      name: Signature
-      in: header
-      required: true
-      description: 'http-signature of the request.
-
-        The keyId must specify the way to get the relevant qualified certificate. It is requested that this identifier is an URL aiming to provide the relevant Qualified Certificate.
-
-        '
-      schema:
-        type: string
-    PsuAcceptLanguageHeader:
-      name: PSU-Accept-Language
-      in: header
-      description: '"Accept-Language" header field sent by the PSU terminal when connecting to the TPP
-
-        '
-      schema:
-        type: string
-    PsuIpPortHeader:
-      name: PSU-IP-Port
-      in: header
-      description: IP port used by the PSU's terminal when connecting to the TPP
-      schema:
-        type: string
+        type: integer
+        format: int32
     DigestHeader:
       name: Digest
       in: header
@@ -1632,6 +1561,18 @@ components:
       description: Digest of the body
       schema:
         type: string
+    FromImputationDate:
+      name: entryDateFrom
+      in: query
+      description: 'Inclusive minimal imputation date of the transactions.
+
+        Transactions having an imputation date equal to this parameter are included within the result.
+
+        '
+      required: false
+      schema:
+        type: string
+        format: date-time
     PsuAcceptEncodingHeader:
       name: PSU-Accept-Encoding
       in: header
@@ -1650,42 +1591,101 @@ components:
         '
       schema:
         type: string
-    pageSize:
-      name: pageSize
-      in: query
-      description: 'Specifies the number of transactions to be displayed in the page in case of pagination
+    PsuAcceptCharsetHeader:
+      name: PSU-Accept-Charset
+      in: header
+      description: '"Accept-Charset" header field sent by the PSU terminal when connecting to the TPP
 
         '
-      required: false
       schema:
-        type: integer
-        format: int32
+        type: string
+    PsuUserAgentHeader:
+      name: PSU-User-Agent
+      in: header
+      description: '"User-Agent" header field sent by the PSU terminal when connecting to the TPP
+
+        '
+      schema:
+        type: string
+    PsuDateHeader:
+      name: PSU-Date
+      in: header
+      description: Timestamp of the most relevant PSU’s terminal request to the TTP
+      schema:
+        type: string
+    SignatureHeader:
+      name: Signature
+      in: header
+      required: true
+      description: 'http-signature of the request.
+
+        The keyId must specify the way to get the relevant qualified certificate. It is requested that this identifier is an URL aiming to provide the relevant Qualified Certificate.
+
+        '
+      schema:
+        type: string
     PsuGeoLocation:
       name: PSU-GEO-Location
       in: header
       description: Geographical location of the PSU as provided by the PSU mobile terminal if any to the TPP
       schema:
         type: string
-    PsuAcceptHeader:
-      name: PSU-Accept
-      in: header
-      description: '"Accept" header field sent by the PSU terminal when connecting to the TPP
-
-        '
-      schema:
-        type: string
-    FromImputationDate:
-      name: entryDateFrom
+    ToImputationDate:
+      name: entryDateTo
       in: query
-      description: 'Inclusive minimal imputation date of the transactions.
+      description: 'Exclusive maximal imputation date of the transactions.
 
-        Transactions having an imputation date equal to this parameter are included within the result.
+        Transactions having an imputation date equal to this parameter are not included within the result.
 
         '
       required: false
       schema:
         type: string
         format: date-time
+    AccountResourceIdentification:
+      name: accountResourceId
+      in: path
+      description: Identification of account resource to fetch
+      required: true
+      schema:
+        type: string
+        pattern: ^([a-zA-Z0-9 \/\-?:\()\.,']{1,35})$
+    PsuAcceptLanguageHeader:
+      name: PSU-Accept-Language
+      in: header
+      description: '"Accept-Language" header field sent by the PSU terminal when connecting to the TPP
+
+        '
+      schema:
+        type: string
+    PsuDeviceId:
+      name: PSU-Device-ID
+      in: header
+      description: 'UUID (Universally Unique Identifier) for a device, which is used by the PSU, if available.
+
+        UUID identifies either a device or a device dependant application installation.
+
+        In case of installation identification this ID need to be unaltered until removal from device.
+
+        '
+      schema:
+        type: string
+    pageNumber:
+      name: pageNumber
+      in: query
+      description: 'Specifies a page number in case of a pagination
+
+        '
+      required: false
+      schema:
+        type: integer
+        format: int32
+    PsuIpAddressHeader:
+      name: PSU-IP-Address
+      in: header
+      description: IP address used by the PSU's terminal when connecting to the TPP
+      schema:
+        type: string
   headers:
     correlationIdHeader:
       description: Correlation header to be set in a request and retrieved in the relevant response
