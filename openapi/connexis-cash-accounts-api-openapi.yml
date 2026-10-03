@@ -59,23 +59,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Account:
-      type: object
-      properties:
-        resourceId:
-          type: string
-        accountId:
-          $ref: '#/components/schemas/AccountReference'
-        name:
-          type: string
-        product:
-          type: string
-        cashAccountType:
-          type: string
-        currency:
-          type: string
-        psuStatus:
-          type: string
     AccountReference:
       type: object
       properties:
@@ -94,6 +77,23 @@ components:
               type: string
             issuer:
               type: string
+    Account:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        accountId:
+          $ref: '#/components/schemas/AccountReference'
+        name:
+          type: string
+        product:
+          type: string
+        cashAccountType:
+          type: string
+        currency:
+          type: string
+        psuStatus:
+          type: string
     AccountList:
       type: object
       properties:
