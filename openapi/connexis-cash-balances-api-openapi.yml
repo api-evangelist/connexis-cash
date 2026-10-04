@@ -45,6 +45,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BalanceList:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
     Balance:
       type: object
       properties:
@@ -65,13 +72,6 @@ components:
         lastChangeDateTime:
           type: string
           format: date-time
-    BalanceList:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Balance'
   securitySchemes:
     oauth2:
       type: oauth2

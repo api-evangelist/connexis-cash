@@ -39,13 +39,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BeneficiaryList:
-      type: object
-      properties:
-        trustedBeneficiaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Beneficiary'
     AccountReference:
       type: object
       properties:
@@ -64,6 +57,13 @@ components:
               type: string
             issuer:
               type: string
+    BeneficiaryList:
+      type: object
+      properties:
+        trustedBeneficiaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
     Beneficiary:
       type: object
       properties:

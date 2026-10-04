@@ -59,24 +59,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AccountReference:
-      type: object
-      properties:
-        iban:
-          type: string
-        bicFi:
-          type: string
-        currency:
-          type: string
-        other:
-          type: object
-          properties:
-            identification:
-              type: string
-            schemeName:
-              type: string
-            issuer:
-              type: string
     Account:
       type: object
       properties:
@@ -104,6 +86,24 @@ components:
         _links:
           type: object
           additionalProperties: true
+    AccountReference:
+      type: object
+      properties:
+        iban:
+          type: string
+        bicFi:
+          type: string
+        currency:
+          type: string
+        other:
+          type: object
+          properties:
+            identification:
+              type: string
+            schemeName:
+              type: string
+            issuer:
+              type: string
   securitySchemes:
     oauth2:
       type: oauth2
