@@ -49,8 +49,8 @@ tags:
 - Open Banking
 - Payments
 - PSD2
-- SCA
 - STET
+- Strong Customer Authentication
 apis:
 - aid: connexis-cash:strong-authentication
   name: Connexis Cash Strong Customer Authentication (SCA)
@@ -263,3 +263,5 @@ x-enrichment:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-tags-removed:
+- SCA
