@@ -187,6 +187,8 @@ apis:
   - type: Fallback
     url: https://connexis.bnpparibas.com/
 common:
+- type: FinOps
+  url: finops/connexis-cash-finops.yml
 - url: https://cashmanagement.bnpparibas.com/rss.xml
   type: BlogRSS
 - type: AgenticAccess
