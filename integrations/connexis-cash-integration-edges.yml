@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/connexis-cash/integrations
+- https://n8n.io/integrations/connexis-cash/
+- https://composio.dev/toolkits/connexis-cash
+- https://monid.ai/tools/connexis-cash
+checked:
+- https://composio.dev/toolkits/connexis-cash
+- https://monid.ai/tools/connexis-cash
+- https://n8n.io/integrations/connexis-cash/
+- https://zapier.com/apps/connexis-cash/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
