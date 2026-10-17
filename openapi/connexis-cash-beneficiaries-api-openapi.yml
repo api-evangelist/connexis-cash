@@ -57,13 +57,6 @@ components:
               type: string
             issuer:
               type: string
-    BeneficiaryList:
-      type: object
-      properties:
-        trustedBeneficiaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Beneficiary'
     Beneficiary:
       type: object
       properties:
@@ -81,6 +74,13 @@ components:
               type: string
         isTrusted:
           type: boolean
+    BeneficiaryList:
+      type: object
+      properties:
+        trustedBeneficiaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
   securitySchemes:
     oauth2:
       type: oauth2

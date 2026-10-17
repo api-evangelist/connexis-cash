@@ -45,16 +45,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConsentResponse:
+    ConsentRequest:
       type: object
       properties:
-        _links:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              href:
-                type: string
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountReference'
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountReference'
+        trustedBeneficiaries:
+          type: boolean
+        psuIdentity:
+          type: boolean
     AccountReference:
       type: object
       properties:
@@ -73,21 +78,16 @@ components:
               type: string
             issuer:
               type: string
-    ConsentRequest:
+    ConsentResponse:
       type: object
       properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountReference'
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountReference'
-        trustedBeneficiaries:
-          type: boolean
-        psuIdentity:
-          type: boolean
+        _links:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              href:
+                type: string
   securitySchemes:
     oauth2:
       type: oauth2
