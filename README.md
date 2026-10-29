@@ -1,4 +1,4 @@
-# Connexis Cash (connexis-cash)
+# Connexis Cash
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,106 +66,151 @@
 
 Connexis Cash is BNP Paribas's corporate digital banking and cash management platform. It gives multinational corporates a unified online channel for payment initiation, real-time payment tracking, account reporting, reconciliation, and liquidity management across BNP Paribas's global network. Connexis Cash also exposes PSD2-compliant Open Banking APIs through the BNP Paribas CIB developer portal so that third-party providers (TPPs) can retrieve account information and initiate payments on behalf of Connexis Cash users, as well as a Strong Customer Authentication (SCA) flow.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/connexis-cash/refs/heads/main/apis.yml)
+**Areas:** Account Information · BNP Paribas · Cash Management · Corporate Banking · Digital Banking · Liquidity Management · Open Banking · Payments · PSD2 · STET · Strong Customer Authentication
 
-## Scope
+## Connexis Cash on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Connexis Cash is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/connexis-cash/](https://apis.io/providers/connexis-cash/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Account Information
-- BNP Paribas
-- Cash Management
-- Corporate Banking
-- Digital Banking
-- Liquidity Management
-- Open Banking
-- Payments
-- PSD2
-- SCA
-- STET
+- [Connexis Cash Strong Customer Authentication (SCA)](https://apis.io/apis/connexis-cash/strong-authentication/) — A documented Strong Customer Authentication flow that BNP Paribas provides for Connexis Cash to satisfy PSD2 SCA requirements. TPPs integrate the SCA flow…
+- [Connexis Cash Digital Banking Platform](https://apis.io/apis/connexis-cash/digital-banking-platform/) — The Connexis Cash digital banking application itself. While not a public REST API, it is the user-facing platform that powers payment initiation, real-time…
+- [Connexis Cash Accounts API](https://apis.io/apis/connexis-cash/connexis-cash-accounts-api/) — The Accounts API from Connexis Cash — 2 operation(s) for accounts.
+- [Connexis Cash Balances API](https://apis.io/apis/connexis-cash/connexis-cash-balances-api/) — The Balances API from Connexis Cash — 1 operation(s) for balances.
+- [Connexis Cash Beneficiaries API](https://apis.io/apis/connexis-cash/connexis-cash-beneficiaries-api/) — The Beneficiaries API from Connexis Cash — 1 operation(s) for beneficiaries.
+- [Connexis Cash Consents API](https://apis.io/apis/connexis-cash/connexis-cash-consents-api/) — The Consents API from Connexis Cash — 1 operation(s) for consents.
+- [Connexis Cash Transactions API](https://apis.io/apis/connexis-cash/connexis-cash-transactions-api/) — The Transactions API from Connexis Cash — 1 operation(s) for transactions.
+- [Connexis Cash AISP API](https://apis.io/apis/connexis-cash/connexis-cash-aisp-api/) — The AISP API from Connexis Cash — 4 operation(s) for aisp.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Connexis Cash PSD2 Account Information API (STET)
+Model Context Protocol servers that expose the API to agents.
 
-A PSD2-compliant Account Information Service (AISP) API exposed by BNP Paribas Corporate and Institutional Banking. Third-party providers consume this REST/JSON API, which follows the STET PSD2 standard, to retrieve account information for Connexis Cash users. Production uses OAuth2 Authorization Code Grant with QWAC certificates; the sandbox uses Client Credentials. Onboarded TPPs must supply QWAC certificates, callback URLs, and EBA reference codes.
+- [connexis-cash-mcp.yml](https://apis.io/servers/connexis-cash/connexis-cash-mcp-yml/)
 
-- **Human URL:** [https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock](https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock)
-- **Base URL:** `https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- AISP
-- PSD2
-- REST
-- STET
+- [Connexis Cash Agentic Access](https://apis.io/agentic-access/connexis-cash/connexis-cash-agentic-access/)
 
-#### Properties
+#### Collections (6)
 
-- [Documentation](https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock)
-- [Developer  Portal](https://developers.cib.bnpparibas.com/)
-- [Production](https://psd2.api.cib.bnpparibas.com/gb-account-information-psd2-stet)
-- [Fallback](https://connexis.bnpparibas.com/)
-- [Postman Collection](collections/connexis-cash.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/connexis-cash.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Connexis Cash Strong Customer Authentication (SCA)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP)](https://apis.io/collections/connexis-cash/open-connexis-cash/)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts API](https://apis.io/collections/connexis-cash/open-connexis-cash-accounts-api/)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Balances API](https://apis.io/collections/connexis-cash/open-connexis-cash-balances-api/)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Beneficiaries API](https://apis.io/collections/connexis-cash/open-connexis-cash-beneficiaries-api/)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Consents API](https://apis.io/collections/connexis-cash/open-connexis-cash-consents-api/)
+- [BNP Paribas Connexis Cash - STET PSD2 Account Information (AISP) Accounts Transactions API](https://apis.io/collections/connexis-cash/open-connexis-cash-transactions-api/)
 
-A documented Strong Customer Authentication flow that BNP Paribas provides for Connexis Cash to satisfy PSD2 SCA requirements. TPPs integrate the SCA flow into their PSD2 journeys so that Connexis Cash users authenticate with two factors before consenting to share account data or initiate payments.
+#### Overlays (1)
 
-- **Human URL:** [https://developers.cib.bnpparibas.com/index.php/docs/sca](https://developers.cib.bnpparibas.com/index.php/docs/sca)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Tags
+- [Connexis Cash Account Information Psd2 Stet Mock Overlay](https://apis.io/overlays/connexis-cash/connexis-cash-account-information-psd2-stet-mock-overlay/)
 
-- PSD2
-- SCA
-- Security
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://developers.cib.bnpparibas.com/index.php/docs/sca)
-- [Developer  Portal](https://developers.cib.bnpparibas.com/)
-- [Postman Collection](collections/connexis-cash.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/connexis-cash.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Connexis Cash Authentication](https://apis.io/security/connexis-cash/connexis-cash-authentication/)
+- [Connexis Cash Domain Security](https://apis.io/security/connexis-cash/connexis-cash-domain-security/)
 
-### Connexis Cash Digital Banking Platform
+#### OAuth scopes (1)
 
-The Connexis Cash digital banking application itself. While not a public REST API, it is the user-facing platform that powers payment initiation, real-time tracking, reconciliation, account reporting, and liquidity management for BNP Paribas corporate customers, with web and mobile apps and host-to-host connectivity options.
+The permissions the API asks for.
 
-- **Human URL:** [https://cashmanagement.bnpparibas.com/solutions/digital-channels](https://cashmanagement.bnpparibas.com/solutions/digital-channels)
+- [Connexis Cash Scopes](https://apis.io/scopes/connexis-cash/connexis-cash-scopes/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Cash Management
-- Digital Channel
-- Mobile
+Published plans, tiers and prices.
 
-#### Properties
+- [Connexis Cash Plans Pricing](https://apis.io/plans/connexis-cash/connexis-cash-plans-pricing/)
 
-- [Documentation](https://cashmanagement.bnpparibas.com/solutions/digital-channels)
-- [i O S  App](https://apps.apple.com/us/app/connexis-cash-mobile/id1053068521)
-- [Postman Collection](collections/connexis-cash.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/connexis-cash.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-## Common Properties
+Published request limits.
+
+- [Connexis Cash Rate Limits](https://apis.io/rate-limits/connexis-cash/connexis-cash-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Connexis Cash Finops](https://apis.io/finops/connexis-cash/connexis-cash-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://cashmanagement.bnpparibas.com/solutions/digital-channels)
-- [Developer  Portal](https://developers.cib.bnpparibas.com/)
-- [Open  Banking  Tracker](https://www.openbankingtracker.com/provider/connexis-cash)
-- [B N P  Paribas  C I B](https://cib.bnpparibas/)
-- [Mobile  App](https://apps.apple.com/us/app/connexis-cash-mobile/id1053068521)
-- [Support](undefined)
+- [Documentation](https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock)
+- [Getting started](https://developers.cib.bnpparibas.com/index.php/docs/get-started)
+- [API reference](https://developers.cib.bnpparibas.com/index.php/api-docs/account-information-psd2-stet-mock)
+- [Sign up](https://developers.cib.bnpparibas.com/index.php/user/register)
+- [Terms of service](https://developers.cib.bnpparibas.com/index.php/terms-of-use)
+- [Privacy policy](https://cib.bnpparibas.com/about/privacy-policy_a-38-60.html)
+- [GitHub](https://github.com/bnpparibas)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 41.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 48.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 60.1 |
+| Access clarity | 36.8 |
+
+**Agent readiness 30.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 40.2** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/connexis-cash/](https://apis.io/providers/connexis-cash/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Connexis Cash: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/connexis-cash/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
